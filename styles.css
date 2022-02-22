@@ -119,12 +119,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 4em;
+    height: 5em;
     background-color: #80332e;
+    margin-bottom: 0;
 }
 
 .text-box {
     padding: 1em;
+    font-size: 1.5em;
     color: #fff;
 }
 
@@ -135,21 +137,21 @@
 
 .time-box {
     display: flex;
-    width: 3em;
-    height: 3em;
+    width: 4em;
+    height: 4em;
     border-radius: 5px;
     margin: 0.5em;
     justify-content: center;
     align-items: center;
-    flex-direction:column;
+    flex-direction: column;
     background-color: #fff;
-    flex-wrap:nowrap;
-    line-height: 1.2em;
+    flex-wrap: nowrap;
+    line-height: 1.3em;
 }
 
 .time-box p {
     padding-top: 0.4em;
-    font-size: 1.4em;
+    font-size: 1.6em;
     font-weight: 500;
 }
 
@@ -157,3 +159,26 @@
     font-size: 0.5em;
 }
 
+@media only screen and (max-width:360px) {
+    .content-wrapper {}
+
+    .content {}
+
+    .small-text {}
+
+    .big-text {}
+
+    .button {}
+
+    .icon {}
+
+    .extra-text {}
+
+    .empty {}
+
+    .banner {}
+}
+
+@media only screen and (min-width:361px) and (max-width:767px) {}
+
+@media only screen and (min-width:768px) {}
