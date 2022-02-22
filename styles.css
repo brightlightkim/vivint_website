@@ -16,14 +16,16 @@
 .header {
     margin: 0;
     height: 4em;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #141c1c;
+    position: fixed;
 }
 
 .logo {
-    height:4em;
+    height: 4em;
 }
 
 .content-wrapper {
@@ -70,8 +72,8 @@
     border-radius: 40px;
     background-color: #00c59b;
     margin-bottom: 1.4em;
-    color: #fff;  
-    text-decoration: none; 
+    color: #fff;
+    text-decoration: none;
     font-size: 1.2em;
     font-weight: bold;
 }
@@ -80,15 +82,15 @@
     size: 2em;
 }
 
-.button:hover{
+.button:hover {
     background-color: #00daaa;
 }
 
-.call-icon{
+.call-icon {
     flex: 1;
 }
 
-.button-text{
+.button-text {
     flex: 4;
 }
 
@@ -112,3 +114,46 @@
 .big-text, .small-text, .extra-text>a {
     color: #fff;
 }
+
+.banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4em;
+    background-color: #80332e;
+}
+
+.text-box {
+    padding: 1em;
+    color: #fff;
+}
+
+.timer {
+    display: flex;
+    justify-content: center;
+}
+
+.time-box {
+    display: flex;
+    width: 3em;
+    height: 3em;
+    border-radius: 5px;
+    margin: 0.5em;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column;
+    background-color: #fff;
+    flex-wrap:nowrap;
+    line-height: 1.2em;
+}
+
+.time-box p {
+    padding-top: 0.4em;
+    font-size: 1.4em;
+    font-weight: 500;
+}
+
+.time-box span {
+    font-size: 0.5em;
+}
+
