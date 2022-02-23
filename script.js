@@ -18,8 +18,8 @@ function setHeadHTML() {
 
 var countDownTime = {
     time: [25, 5, 00, 20],/**order: days, hours, minutes, seconds */
-    valid: false,/**valid if the coundDownTime is bigger than current time */
-    done: false /**done if the coundDownTime set to 0 */
+    valid: false,/**valid if the countDownTime is bigger than current time */
+    done: false /**done if the countDownTime set to 0 */
 }
 
 /**Time Function */
@@ -310,7 +310,7 @@ function createMainMessage() {
 function createTimeBanner() {
     const banner = document.createElement('a');
     banner.href = "https://www.vivint.com/packages/home-security";
-    /**This link can be changed to desired url */
+    /**This link can be changed to a desired url */
     banner.className = "banner";
 
     const text_box = createDivWithText("text-box", "Get Offer Before Close");
@@ -322,7 +322,7 @@ function createTimeBanner() {
     document.body.appendChild(banner);
 }
 
-/* Every Functions for Landing Webpage*/
+/* Every Function for Landing a Webpage*/
 
 setHeadHTML();
 createHeader();
