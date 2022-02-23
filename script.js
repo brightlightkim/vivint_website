@@ -38,17 +38,28 @@ function createImageLink(url, imgPath, className) {
     return link;
 }
 
+function createSpan(message){
+    const span = document.createElement('span');
+    span.innerHTML = message;
+    return span;
+}
+
+function createP(message){
+    const p = document.createElement('p');
+    p.innerHTML = message;
+    return p;
+}
+
 /**Main Message Helping Functions */
 
 function createClickButton(){
     const button = document.createElement('a');
     const img = document.createElement('img');
-    const span = document.createElement('span');
+    const span = createSpan("877.537.3785");
     button.href = "tel:18775373785";
     button.className = "button";
     img.src = "https://www.iconsdb.com/icons/preview/white/phone-xxl.png";
     img.className = "icon";
-    span.innerHTML = "877.537.3785";
     button.appendChild(img);
     button.appendChild(span);
     return button;
@@ -67,6 +78,49 @@ function createExtraText(){
 }
 
 /**Banner Helping Function */
+function createTimeBox(time_type) {
+    const time_box = createDiv("time-box");
+    const span_message = createSpan(time_type);
+
+    const p = createP('');
+    switch(time_type){
+        case "days":
+            p.innerHTML = currentTime.days;
+            break;
+        case "hours":
+            p.innerHTML = currentTime.hours;
+            break;
+        case "minutes":
+            p.innerHTML = currentTime.minutes;
+            break;
+        default:
+            p.innerHTML = currentTime.seconds;
+            break;
+    }
+
+    time_box.appendChild(p);
+    time_box.appendChild(span_message);
+    return time_box;
+}
+
+function createTimer() {
+    const timer = createDiv("timer");
+    
+    currentTime.currentTime();
+    const days = createTimeBox("days");
+    const hours = createTimeBox("hours");
+    const minutes = createTimeBox("minutes");
+    const seconds = createTimeBox("seconds");
+
+    timer.appendChild(days);
+    timer.appendChild(hours);
+    timer.appendChild(minutes);
+    timer.appendChild(seconds);
+    
+    return timer;
+}
+
+
 
 /**Create Header */
 function createHeader() {
@@ -78,7 +132,6 @@ function createHeader() {
 }
 
 /*ContentWrapper Functions*/
-
 function createMainMessage(){
     const content_wrapper = createDiv("content-wrapper");
     const content = createDiv("content");
@@ -104,9 +157,18 @@ function createMainMessage(){
 /* Banner*/
 
 function createTimeBanner(){
-    
+    const banner = createDiv("banner");
+    const text_box = createDivWithText("text-box", "Get Offer Before Close");
+    const timer = createTimer();
+
+    banner.appendChild(text_box);
+    banner.appendChild(timer);
+
+    document.body.appendChild(banner);
 }
 
+/* Every Functions for Landing Webpage*/
 
-
-/* Banner Function*/
+createHeader();
+createMainMessage();
+createTimeBanner();
