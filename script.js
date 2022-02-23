@@ -1,9 +1,9 @@
 /**Setting Head of HTML*/
-function setHeadHTML(){
+function setHeadHTML() {
     const responsiveSetting = document.createElement('meta');
     responsiveSetting.name = "viewport";
     responsiveSetting.content = "width=device-width, initial-scale=1.0";
-    
+
     const styleLink = document.createElement('link');
     styleLink.rel = "stylesheet";
     styleLink.href = "./styles.css";
@@ -17,108 +17,133 @@ function setHeadHTML(){
 }
 
 var countDownTime = {
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 20,
-    done: false
+    time: [25, 5, 00, 20],/**order: days, hours, minutes, seconds */
+    valid: false,/**valid if the coundDownTime is bigger than current time */
+    done: false /**done if the coundDownTime set to 0 */
 }
 
 /**Time Function */
 
-/**Setting Count Time with current Time (11PM - currentTime) 
- * This can be changed with any given time.
-*/
+function checkCountDown(currentTime) {
+    for (let i = 0; i < 4; i++) {
+        if (countDownTime.time[i] < currentTime[i]) {
+            return false;
+        }
+        else if (countDownTime.time[i] > currentTime[i]) {
+            return true;
+        }
+        else {
+            continue;
+        }
+    }
+    return false;
+}
 
-
-function timeCalculator(firstTime, subtractTime){
-    if (firstTime[1] < subtractTime[1]){
-        firstTime[0] = 1;
-        /**This is for the case when it's 23:50. 
-         * In this case, we put 
-         * 00 23 00 00 
-         * 00 23 50 40
-         * 
-         * 01 23 00 00
-         * 00 23 50 40
-         * 
-         * 01 00 10 20
-         */
+function calculate60(subtractTime, index) {
+    if (countDownTime.time[index] < subtractTime) {
+        countDownTime.time[index] = countDownTime.time[index] + 60 - subtractTime;
+        countDownTime.time[index - 1]--;
+    }
+    else {
+        countDownTime.time[index] -= subtractTime;
     }
 }
 
-function settingCountDownTimeWith11PM_MDT() {
-    var currentTime = new Date();
-    var firstTime = [0, 23, 0, 0]; /**This can be changed with any given time */
-    var subtractTime = [0, currentTime.getHours(), currentTime.getMinutes(), currentTime.getSeconds()];
-    timeCalculator(firstTime, subtractTime);
+function calculateHours(subtractTime) {
+    if (countDownTime.time[1] < subtractTime) {
+        countDownTime.time[1] = countDownTime.time[1] + 24 - subtractTime;
+        countDownTime.time[0]--;
+    }
+    else {
+        countDownTime.time[1] -= subtractTime;
+    }
 }
 
-/**Day, Minute, Hour, Seconds */
+function calculateDays(subtractTime) {
+    countDownTime.time[0] -= subtractTime;
+}
+
+function timeCalculator(subtractTime) {
+    valid = checkCountDown(subtractTime);
+    if (valid) {
+        /**Second */
+        calculate60(subtractTime[3], 3);
+        /**Minute */
+        calculate60(subtractTime[2], 2);
+        /**Hour */
+        calculateHours(subtractTime[1]);
+        /**Day */
+        calculateDays(subtractTime[0]);
+    }
+
+}
+
+function settingCountDownTime() {
+    var currentTime = new Date();
+    var subtractTime = [currentTime.getDate(), currentTime.getHours(), currentTime.getMinutes(), currentTime.getSeconds()];
+    timeCalculator(subtractTime);
+}
+
 function getClassData(className, index) {
     return document.getElementsByClassName(className)[index].firstChild.innerHTML;
 }
 
-/**60 */
 function changeSecond() {
     var second = parseInt(getClassData("time-box", 3));
-    
+
     if (second === 0) {
         if (!changeMinute()) {
             return false;
         }
         second = 59;
     }
-    else{
+    else {
         second--;
     }
-    
+
     document.getElementsByClassName("time-box")[3].firstChild.innerHTML = second;
     return true;
 }
 
-/**60 */
 function changeMinute() {
     var minute = parseInt(getClassData("time-box", 2));
-    
+
     if (minute === 0) {
         if (!changeHour()) {
             return false;
         }
         minute = 59;
     }
-    else{
+    else {
         minute--;
     }
     document.getElementsByClassName("time-box")[2].firstChild.innerHTML = minute;
     return true;
 }
 
-/**24 */
 function changeHour() {
     var hour = parseInt(getClassData("time-box", 1));
-   
+
     if (hour === 0) {
         if (!changeDay()) {
             return false;
         }
         hour = 23;
     }
-    else{
+    else {
         hour--;
     }
     document.getElementsByClassName("time-box")[1].firstChild.innerHTML = hour;
     return true;
 }
 
-/**whatever */
 function changeDay() {
     var day = parseInt(getClassData("time-box", 0));
-    
+
     if (day === 0) {
         return false;
     }
-    else{
+    else {
         day--;
     }
     document.getElementsByClassName("time-box")[0].firstChild.innerHTML = day;
@@ -213,16 +238,16 @@ function createTimeBox(time_type) {
     const p = createP('');
     switch (time_type) {
         case "days":
-            p.innerHTML = countDownTime.days;
+            p.innerHTML = countDownTime.time[0];
             break;
         case "hours":
-            p.innerHTML = countDownTime.hours;
+            p.innerHTML = countDownTime.time[1];
             break;
         case "minutes":
-            p.innerHTML = countDownTime.minutes;
+            p.innerHTML = countDownTime.time[2];
             break;
         default:
-            p.innerHTML = countDownTime.seconds;
+            p.innerHTML = countDownTime.time[3];
             break;
     }
 
@@ -284,6 +309,7 @@ function createMainMessage() {
 /* Banner*/
 
 function createTimeBanner() {
+
     const banner = createDiv("banner");
     const text_box = createDivWithText("text-box", "Get Offer Before Close");
     const timer = createTimer();
@@ -299,9 +325,11 @@ function createTimeBanner() {
 setHeadHTML();
 createHeader();
 createMainMessage();
-createTimeBanner();
-var countInterval = setInterval(function(){
-    countDown();
-}, 1000);
-
+settingCountDownTime();
+if (valid) {
+    createTimeBanner();
+    var countInterval = setInterval(function () {
+        countDown();
+    }, 1000);
+}
 
