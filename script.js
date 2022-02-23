@@ -23,7 +23,6 @@ var countDownTime = {
 }
 
 /**Time Function */
-
 function checkCountDown(currentTime) {
     for (let i = 0; i < 4; i++) {
         if (countDownTime.time[i] < currentTime[i]) {
@@ -309,8 +308,11 @@ function createMainMessage() {
 /* Banner*/
 
 function createTimeBanner() {
+    const banner = document.createElement('a');
+    banner.href = "https://www.vivint.com/packages/home-security";
+    /**This link can be changed to desired url */
+    banner.className = "banner";
 
-    const banner = createDiv("banner");
     const text_box = createDivWithText("text-box", "Get Offer Before Close");
     const timer = createTimer();
 
