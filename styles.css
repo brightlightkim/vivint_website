@@ -36,6 +36,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: 700px;
+    margin-bottom: 4em;
     object-fit: scale-down;
     display: flex;
     align-items: center;
@@ -178,18 +179,16 @@
 
     .content-wrapper {
         background-image: url(https://cdn.optimizely.com/img/12265111463/a59dc44d7000439d95d7ddf3f072ff90.jpg);
-        background-size:cover;
+        background-size:cover 700px;
         flex-direction: column;
         width: 100%;
-        height: 1351px;
-        padding: 0;
+        margin-bottom: 6em;
         /*change a height, flex-direction*/
     }
 
     .content {
         width: 100%;
         padding: 7em 0 0 0;
-        flex: 1;
         align-items: center;
     }
 
@@ -225,6 +224,8 @@
 
     .empty {
         flex: 0;
+        width: 0;
+        height: 0;
     }
 
     .banner {
@@ -232,7 +233,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 10em;
+        height: 9em;
         background-color: #80332e;
         margin-bottom: 0;
         line-height: 0em;
@@ -284,7 +285,7 @@
     
     .content-wrapper {
         background-image: url(https://cdn.optimizely.com/img/12265111463/b2e16202c5d749f996fd6ef186f9ea8f.jpg);
-        height: 647px;
+        background-size: cover 600px;
     }
 
     .content {
@@ -385,62 +386,3 @@
     }
 }
 
-
-
-[data-responsive-background-image="hero-responsive-optly-promo"] {
-    height: 620px;
-    background-position: bottom center;
-}
-
-.no-webp [data-responsive-background-image="hero-responsive-optly-promo"] {
-    background-image: url(//cdn.optimizely.com/img/12265111463/a59dc44d7000439d95d7ddf3f072ff90.jpg);
-}
-
-.webp [data-responsive-background-image="hero-responsive-optly-promo"] {
-    background-image: url(//cdn.optimizely.com/img/12265111463/a59dc44d7000439d95d7ddf3f072ff90.jpg);
-}
-
-@media all and (min-width: 520px) and (max-width: 767px) {
-    [data-responsive-background-image="hero-responsive-optly-promo"] {
-        height: 750px;
-        background-position: bottom center;
-    }
-
-    .no-webp [data-responsive-background-image="hero-responsive-optly-promo"] {
-        background-image: url(//cdn.optimizely.com/img/12265111463/b2e16202c5d749f996fd6ef186f9ea8f.jpg);
-    }
-
-    .webp [data-responsive-background-image="hero-responsive-optly-promo"] {
-        background-image: url(//cdn.optimizely.com/img/12265111463/b2e16202c5d749f996fd6ef186f9ea8f.jpg);
-    }
-}
-
-@media all and (min-width: 768px) and (max-width: 1024px) {
-    [data-responsive-background-image="hero-responsive-optly-promo"] {
-        height: 700px;
-        background-position: ;
-    }
-
-    .no-webp [data-responsive-background-image="hero-responsive-optly-promo"] {
-        background-image: url(//cdn.optimizely.com/img/12265111463/1b7ab138b8be4ae9961137610921db58.jpg);
-    }
-
-    .webp [data-responsive-background-image="hero-responsive-optly-promo"] {
-        background-image: url(//cdn.optimizely.com/img/12265111463/1b7ab138b8be4ae9961137610921db58.jpg);
-    }
-}
-
-@media all and (min-width: 1025px) {
-    [data-responsive-background-image="hero-responsive-optly-promo"] {
-        height: 700px;
-        background-position: ;
-    }
-
-    .no-webp [data-responsive-background-image="hero-responsive-optly-promo"] {
-        background-image: url(//cdn.optimizely.com/img/12265111463/d81bc52566104ee287079fa3659b1a2a.jpg);
-    }
-
-    .webp [data-responsive-background-image="hero-responsive-optly-promo"] {
-        background-image: url(//cdn.optimizely.com/img/12265111463/d81bc52566104ee287079fa3659b1a2a.jpg);
-    }
-}
