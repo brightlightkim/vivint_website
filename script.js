@@ -17,7 +17,7 @@ function setHeadHTML() {
 }
 
 var countDownTime = {
-    time: [25, 5, 00, 20],/**order: days, hours, minutes, seconds */
+    time: [28, 5, 00, 20],/**order: days, hours, minutes, seconds */
     valid: false,/**valid if the countDownTime is bigger than current time */
     done: false /**done if the countDownTime set to 0 */
 }
