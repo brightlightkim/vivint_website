@@ -27,6 +27,10 @@ body {
     align-items: center;
 }
 
+.content_wrapper > div {
+    margin-top: 2em;
+}
+
 .content {
     display: flex;
     align-items: center;
@@ -71,7 +75,7 @@ body {
     border-color: #e2b95d;
 }
 
-.answer:hover {
+.answer:hover, .chosenAnswer {
     background-color: #f3e3be;
 }
 
@@ -94,7 +98,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 2em;
     width: 75px;
     height: 50px;
     border-radius: 25px;
