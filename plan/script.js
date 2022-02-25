@@ -4,20 +4,152 @@ var QandAList = {
         "Choose Your Property Type",
         "Are you interested in remote video access?",
         "How many doors do you want to monitor?",
-
     ],
     answerList: [
         ["Homeowner", "Rental", "Commercial", "Other"],
         ["Yes", "No", "Not Sure"],
         ["1 Door", "2 Doors", "3 Doors + ", "Not Sure"],
     ],
+    suggestionBasic: [
+        "24/7 Monitoring",
+        "Intrusion detection",
+        "Touchscreen control panel",
+        "Mobile app"
+    ],
+    premium: [
+        "Video security",
+        "Theft deterrent"
+    ],
+    premiumPlus: [
+        "Voice control",
+        "Stored video clips",
+        "Smart home automation",
+        "Vehicle protection"
+    ],
+    suggestionLevel: ["Starter", "Premium", "Premium Plus"],
+    suggestionExplanation: ["Basic home security", "Complete home protection", "Security + Automation"],
     currentQuestion: 0,
     progress: 10,
 };
 
 const userAnswer = new Map();
 
-var arrow_icon_address = "https://www.freeiconspng.com/thumbs/white-arrow-png/white-arrow-transparent-png-22.png"
+const arrow_icon_address = "https://www.freeiconspng.com/thumbs/white-arrow-png/white-arrow-transparent-png-22.png"
+
+function setCustomizedPlan() {
+    var planNum = 0;
+    return planNum;
+}
+
+function makeVivintText() {
+    const your_vivint_plan = document.createElement("h2");
+    your_vivint_plan.className = "suggestion_main_text";
+    your_vivint_plan.innerHTML = "Your Vivint Plan is:";
+    return your_vivint_plan;
+}
+
+function makePlanBenefitList(userPlan){
+    const ul = document.createElement("ul");
+    for (let i = 0; i < QandAList.suggestionBasic.length; i++) {
+        const li = document.createElement('li');
+        li.innerHTML = QandAList.suggestionBasic[i];
+        ul.appendChild(li);
+    }
+
+    if (userPlan > 0) {
+        for (let i = 0; i < QandAList.premium.length; i++) {
+            const li = document.createElement('li');
+            li.innerHTML = QandAList.premium[i];
+            ul.appendChild(li);
+        }
+    }
+    if (userPlan > 1){
+        for (let i = 0; i < QandAList.premiumPlus.length; i++){
+            const li = document.createElement('li');
+            li.innerHTML = QandAList.premiumPlus[i];
+            ul.appendChild(li);
+        }
+    }
+    return ul;
+}
+
+function makeSuggestionMainText(userPlan){
+    const package = document.createElement("h1");
+    package.className = "suggestion_package_name";
+    package.innerHTML = QandAList.suggestionLevel[userPlan]
+    return package;
+}
+
+function makeSuggestionPackageName(userPlan){
+    const explanation = document.createElement("p");
+    explanation.innerHTML = QandAList.suggestionExplanation[userPlan];
+    return explanation;
+}
+
+function createSpan(message) {
+    const span = document.createElement('span');
+    span.innerHTML = message;
+    return span;
+}
+
+function createCallButton() {
+    const button = document.createElement('a');
+    const img = document.createElement('img');
+    const span = createSpan("877.537.3785");
+    button.href = "tel:18775373785";
+    button.className = "call_button";
+    img.src = "https://www.iconsdb.com/icons/preview/white/phone-xxl.png";
+    img.className = "icon";
+    button.appendChild(img);
+    button.appendChild(span);
+    return button;
+}
+
+
+function makeSuggestionText() {
+    const suggestion_text = makeDiv("suggestion_text");
+
+    const your_vivint_plan = makeVivintText();
+
+    const userPlan = setCustomizedPlan();
+
+    const package = makeSuggestionMainText(userPlan);
+
+    const explanation =makeSuggestionPackageName(userPlan);
+    
+    const ul = makePlanBenefitList(userPlan);
+
+    const call_button = createCallButton();
+
+    suggestion_text.appendChild(your_vivint_plan);
+    suggestion_text.appendChild(package);
+    suggestion_text.appendChild(explanation);
+    suggestion_text.appendChild(ul);
+    suggestion_text.appendChild(call_button);
+
+    return suggestion_text;
+}
+
+function makeSuggestionImage(){
+    const suggestion_image = document.createElement('img');
+    suggestion_image.src = "https://d1sfco99flnudn.cloudfront.net/www.vivintsource.com/images/pages/packages/dog-on-chair-small.jpg";
+    suggestion_image.className = "suggestion_image";
+    return suggestion_image;
+}
+
+function suggestPlan() {
+    const suggestion_wrapper = makeDiv("suggestion_wrapper");
+    const suggestion_box = makeDiv("suggestion_box");
+    const suggestion_image = makeSuggestionImage();
+    const suggestion_text = makeSuggestionText();   
+
+    suggestion_box.appendChild(suggestion_image);
+    suggestion_box.appendChild(suggestion_text);
+
+    suggestion_wrapper.appendChild(suggestion_box);
+
+    document.body.appendChild(suggestion_wrapper);
+}
 
 /**Make it memorable in the memory >> after chosen >> it's remembered, does not change stuff.
 */
@@ -58,9 +190,22 @@ function makePrevButton() {
 }
 
 function nextButtonEvent() {
-    QandAList.currentQuestion++;
-    changeQuestion();
-    colorChosenAnswer();
+    if (QandAList.currentQuestion === 0) {
+        makePrevButton();
+        document.getElementsByClassName("button")[1].classList.add("right");
+        QandAList.currentQuestion++;
+        changeQuestion();
+        colorChosenAnswer();
+    }
+    else if (QandAList.currentQuestion + 1 === QandAList.questionList.length) {
+        remove(document.getElementsByClassName("content_wrapper")[0]);
+        suggestPlan();
+    }
+    else {
+        QandAList.currentQuestion++;
+        changeQuestion();
+        colorChosenAnswer();
+    }
 }
 
 function nextQuestion(answerNumber) {
@@ -73,7 +218,7 @@ function nextQuestion(answerNumber) {
     }
     else if (QandAList.currentQuestion + 1 === QandAList.questionList.length) {
         remove(document.getElementsByClassName("content_wrapper")[0]);
-        /**Suggest Plan Page */
+        suggestPlan();
 
     }
     else {
@@ -98,7 +243,7 @@ function makeDiv(className) {
 }
 
 function makeText(className, textInfo) {
-    var text = document.createElement('h1');
+    var text = document.createElement('h2');
     text.className = className;
     text.innerHTML = textInfo;
     return text;
@@ -182,7 +327,7 @@ function makeButton() {
     right_icon.className = "icon";
     right_icon.src = arrow_icon_address;
     button_right.appendChild(right_icon);
-    button_right.addEventListener("click", nextQuestion);
+    button_right.addEventListener("click", nextButtonEvent);
 
     wrapper.appendChild(button_right);
 
@@ -207,6 +352,6 @@ function makeQuestionPage() {
     document.body.appendChild(content_wrapper);
 }
 
+/**Landing Page */
 makeHeader();
-
 makeQuestionPage();
