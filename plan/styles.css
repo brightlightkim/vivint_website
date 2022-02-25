@@ -1,9 +1,9 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
-body{
+body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -11,7 +11,7 @@ body{
     display: flex;
     height: 5em;
     width: 100%;
-    background-color: #141c1c;    
+    background-color: #141c1c;
     align-items: center;
     justify-content: center;
 }
@@ -47,7 +47,7 @@ body{
     background-color: #e7e7e7;
 }
 
-.question{
+.question {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,7 +67,7 @@ body{
     margin: 5px;
     border-width: 5px;
     border-radius: 35px;
-    border-style: solid;    
+    border-style: solid;
     border-color: #e2b95d;
 }
 
@@ -75,10 +75,19 @@ body{
     background-color: #f3e3be;
 }
 
-.button_wrapper {
+.wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.icon {
+    height: 40px;
+}
+
+.flip {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
 }
 
 .button {
@@ -86,12 +95,34 @@ body{
     justify-content: center;
     align-items: center;
     margin-top: 2em;
-    width: 200px;
+    width: 75px;
     height: 50px;
     border-radius: 25px;
     background-color: #e2b95d;
 }
 
-.button:hover{
+.left {
+    border-radius: 25px 0px 0px 25px;
+}
+
+.right {
+    border-radius: 0px 25px 25px 0px;
+}
+
+.button:hover {
     background-color: #f3e3be;
+}
+.progress_bar{
+    display: flex;
+    width: 800px;
+    height: 16px;
+    background-color: #f3e3be;
+    border-radius: 8px;
+}
+/*change width in javascript*/
+.progress_bar_begin {
+    width: 30%;
+    height: 16px;
+    background-color: #e2b95d;
+    border-radius: 10px;
 }
