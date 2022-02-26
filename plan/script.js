@@ -32,12 +32,27 @@ var QandAList = {
     progress: 10,
 };
 
+var planNum = 0;
+
 const userAnswer = new Map();
 
 const arrow_icon_address = "https://www.freeiconspng.com/thumbs/white-arrow-png/white-arrow-transparent-png-22.png"
 
 function setCustomizedPlan() {
-    var planNum = 0;
+    /**if user didn't choose the option or they selected not sure for everything. */
+    if(userAnswer.size === 0 || 
+        ((userAnswer.get(1) === 2 || userAnswer.get(1) === 1) && 
+        (userAnswer.get(2) === 1 || userAnswer.get(2) === 3))){
+        planNum = 0;
+    }
+    else if (
+        userAnswer.get(1) === 0 && userAnswer.get(2) === 2
+    ){
+        planNum = 2;
+    }
+    else{
+        planNum = 1;
+    }
     return planNum;
 }
 
@@ -76,7 +91,7 @@ function makePlanBenefitList(userPlan){
 function makeSuggestionMainText(userPlan){
     const package = document.createElement("h1");
     package.className = "suggestion_package_name";
-    package.innerHTML = QandAList.suggestionLevel[userPlan]
+    package.innerHTML = QandAList.suggestionLevel[userPlan] + "&nbsp;Package";
     return package;
 }
 
@@ -98,6 +113,10 @@ function createCallButton() {
     const span = createSpan("877.537.3785");
     button.href = "tel:18775373785";
     button.className = "call_button";
+    if (planNum === 2){
+        button.style.marginTop = "1em";
+    }
+
     img.src = "https://www.iconsdb.com/icons/preview/white/phone-xxl.png";
     img.className = "icon";
     button.appendChild(img);
@@ -141,7 +160,14 @@ function suggestPlan() {
     const suggestion_wrapper = makeDiv("suggestion_wrapper");
     const suggestion_box = makeDiv("suggestion_box");
     const suggestion_image = makeSuggestionImage();
-    const suggestion_text = makeSuggestionText();   
+    const suggestion_text = makeSuggestionText();
+    
+    if (planNum === 2){
+        suggestion_wrapper.style.marginTop = "20px";
+        suggestion_box.style.width = "950px";
+        suggestion_image.style.height = "596px";
+        suggestion_text.style.height = "500px";
+    }
 
     suggestion_box.appendChild(suggestion_image);
     suggestion_box.appendChild(suggestion_text);

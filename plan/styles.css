@@ -46,7 +46,7 @@ body {
     display: flex;
     width: 500px;
     height: 400px; 
-    padding: 3em;
+    padding: 3em 0 3em 3em;
     flex-direction: column;
     justify-content: center;
     align-items: left;
