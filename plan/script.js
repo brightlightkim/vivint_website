@@ -32,7 +32,8 @@ var QandAList = {
     progress: 10,
 };
 
-var planNum = 0;
+var planNum = null;
+var originalPlanNum = null;
 
 const userAnswer = new Map();
 
@@ -40,30 +41,41 @@ const arrow_icon_address = "https://www.freeiconspng.com/thumbs/white-arrow-png/
 
 function setCustomizedPlan() {
     /**if user didn't choose the option or they selected not sure for everything. */
-    if(userAnswer.size === 0 || 
-        ((userAnswer.get(1) === 2 || userAnswer.get(1) === 1) && 
-        (userAnswer.get(2) === 1 || userAnswer.get(2) === 3))){
+    if (userAnswer.size === 0 ||
+        ((userAnswer.get(1) === 2 || userAnswer.get(1) === 1) &&
+            (userAnswer.get(2) === 1 || userAnswer.get(2) === 3))) {
         planNum = 0;
     }
     else if (
         userAnswer.get(1) === 0 && userAnswer.get(2) === 2
-    ){
+    ) {
         planNum = 2;
     }
-    else{
+    else {
         planNum = 1;
     }
+    originalPlanNum = planNum;
     return planNum;
 }
 
 function makeVivintText() {
     const your_vivint_plan = document.createElement("h2");
     your_vivint_plan.className = "suggestion_main_text";
-    your_vivint_plan.innerHTML = "Your Vivint Plan is:";
+
+    if (originalPlanNum == planNum){
+        your_vivint_plan.innerHTML = "Your Vivint Plan is:";
+    }
+    else if (originalPlanNum < planNum) {
+        your_vivint_plan.innerHTML = "Upgraded Vivint Plan is:";
+    }
+    else{
+        your_vivint_plan.innerHTML = "Downgraded Vivint Plan is:";
+    }
+
     return your_vivint_plan;
 }
 
-function makePlanBenefitList(userPlan){
+function makePlanBenefitList(userPlan) {
     const ul = document.createElement("ul");
     for (let i = 0; i < QandAList.suggestionBasic.length; i++) {
         const li = document.createElement('li');
@@ -78,8 +90,8 @@ function makePlanBenefitList(userPlan){
             ul.appendChild(li);
         }
     }
-    if (userPlan > 1){
-        for (let i = 0; i < QandAList.premiumPlus.length; i++){
+    if (userPlan > 1) {
+        for (let i = 0; i < QandAList.premiumPlus.length; i++) {
             const li = document.createElement('li');
             li.innerHTML = QandAList.premiumPlus[i];
             ul.appendChild(li);
@@ -88,14 +100,14 @@ function makePlanBenefitList(userPlan){
     return ul;
 }
 
-function makeSuggestionMainText(userPlan){
+function makeSuggestionMainText(userPlan) {
     const package = document.createElement("h1");
     package.className = "suggestion_package_name";
     package.innerHTML = QandAList.suggestionLevel[userPlan] + "&nbsp;Package";
     return package;
 }
 
-function makeSuggestionPackageName(userPlan){
+function makeSuggestionPackageName(userPlan) {
     const explanation = document.createElement("p");
     explanation.innerHTML = QandAList.suggestionExplanation[userPlan];
     return explanation;
@@ -113,7 +125,7 @@ function createCallButton() {
     const span = createSpan("877.537.3785");
     button.href = "tel:18775373785";
     button.className = "call_button";
-    if (planNum === 2){
+    if (planNum === 2) {
         button.style.marginTop = "1em";
     }
 
@@ -129,13 +141,18 @@ function makeSuggestionText() {
     const suggestion_text = makeDiv("suggestion_text");
 
     const your_vivint_plan = makeVivintText();
-
-    const userPlan = setCustomizedPlan();
+    var userPlan = null;
+    if (planNum != null) {
+        userPlan = planNum;
+    }
+    else {
+        userPlan = setCustomizedPlan();
+    }
 
     const package = makeSuggestionMainText(userPlan);
 
-    const explanation =makeSuggestionPackageName(userPlan);
-    
+    const explanation = makeSuggestionPackageName(userPlan);
+
     const ul = makePlanBenefitList(userPlan);
 
     const call_button = createCallButton();
@@ -149,11 +166,98 @@ function makeSuggestionText() {
     return suggestion_text;
 }
 
-function makeSuggestionImage(){
+function makeSuggestionImage() {
     const suggestion_image = document.createElement('img');
     suggestion_image.src = "https://d1sfco99flnudn.cloudfront.net/www.vivintsource.com/images/pages/packages/dog-on-chair-small.jpg";
     suggestion_image.className = "suggestion_image";
     return suggestion_image;
+}
+
+/**Functions for Changing the content of the suggestion package */
+
+function changeStyle(state) {
+    var suggestion_wrapper = document.querySelectorAll(".suggestion_wrapper")[0];
+    var suggestion_box = document.querySelectorAll(".suggestion_box")[0];
+    var suggestion_image = document.querySelectorAll(".suggestion_image")[0];
+    var suggestion_text = document.querySelectorAll(".suggestion_text")[0];
+
+    if (state === true) {
+        suggestion_wrapper.style.marginTop = "20px";
+        suggestion_box.style.width = "850px";
+        suggestion_image.style.height = "546px";
+        suggestion_text.style.height = "450px";
+    }
+    else {
+        suggestion_wrapper.style.marginTop = "0";
+        suggestion_box.style.width = "800px";
+        suggestion_image.style.height = "496px";
+        suggestion_text.style.height = "400px";
+    }
+}
+
+function changeSuggestion(state) {
+    if (state == true) {
+        if (planNum === 2) {
+            planNum = 0;
+        }
+        else {
+            planNum++;
+        }
+    }
+    else {
+        if (planNum === 0) {
+            planNum = 2;
+        }
+        else {
+            planNum--;
+        }
+    }
+
+    var newSuggestion = makeSuggestionText();
+    remove(document.getElementsByClassName("suggestion_text")[0]);
+    var element = document.getElementsByClassName("suggestion_text")[0];
+    element.parentNode.removeChild(element);
+    var insertPlace = document.getElementsByClassName("insertPlace")[0];
+    var parentDiv = document.body.querySelectorAll(".suggestion_box")[0];
+    parentDiv.insertBefore(newSuggestion, insertPlace);
+
+    if(planNum == 2){
+        changeStyle(true);
+    }
+    else {
+        changeStyle(false);
+    }
+}
+
+function makeSuggestionButtons(wrapper) {
+
+    const right_button = makeDiv("button");
+    const left_button = makeDiv("button");
+    right_button.style.cursor = "pointer";
+    left_button.style.cursor = "pointer";
+
+    var right_img = document.createElement('img');
+    right_img.className = "icon flip";
+    right_img.src = "https://www.freeiconspng.com/thumbs/white-arrow-png/white-arrow-transparent-png-22.png";
+    right_img.style.padding = "0em";
+
+    var left_img = document.createElement('img');
+    left_img.className = "icon";
+    left_img.src = "https://www.freeiconspng.com/thumbs/white-arrow-png/white-arrow-transparent-png-22.png";
+    left_img.style.padding = "0em";
+
+
+    right_button.setAttribute("id", "suggestion_right_button");
+    right_button.addEventListener("click", changeSuggestion);
+
+    left_button.setAttribute("id", "suggestion_left_button");
+    left_button.addEventListener("click", changeSuggestion);
+    right_button.appendChild(right_img);
+    left_button.appendChild(left_img);
+
+    wrapper.appendChild(right_button);
+    wrapper.appendChild(left_button);
+    return wrapper;
 }
 
 function suggestPlan() {
@@ -161,8 +265,14 @@ function suggestPlan() {
     const suggestion_box = makeDiv("suggestion_box");
     const suggestion_image = makeSuggestionImage();
     const suggestion_text = makeSuggestionText();
-    
-    if (planNum === 2){
+    const background = makeDiv("background");
+    var background_img = makeDiv("background_img");
+    const background_img2 = makeDiv("background_img");
+    const insertPlace = makeDiv("insertPlace");
+
+    background_img = makeSuggestionButtons(background_img);
+
+    if (planNum === 2) {
         suggestion_wrapper.style.marginTop = "20px";
         suggestion_box.style.width = "950px";
         suggestion_image.style.height = "596px";
@@ -171,10 +281,16 @@ function suggestPlan() {
 
     suggestion_box.appendChild(suggestion_image);
     suggestion_box.appendChild(suggestion_text);
+    suggestion_box.appendChild(insertPlace);
 
     suggestion_wrapper.appendChild(suggestion_box);
 
     document.body.appendChild(suggestion_wrapper);
+
+    background.appendChild(background_img);
+    background.appendChild(background_img2);
+
+    document.body.appendChild(background);
 }
 
 /**Make it memorable in the memory >> after chosen >> it's remembered, does not change stuff.
@@ -321,8 +437,6 @@ function setProgress() {
 
 
 function makeProgressBar() {
-
-
     var wrapper = makeDiv("wrapper");
 
     var td0 = document.createElement('td');
