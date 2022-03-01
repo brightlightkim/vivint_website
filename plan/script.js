@@ -244,8 +244,8 @@ function nextQuestion(answerNumber) {
     }
     else if (QandAList.currentQuestion + 1 === QandAList.questionList.length) {
         remove(document.getElementsByClassName("content_wrapper")[0]);
+        userAnswer.set(QandAList.currentQuestion, answerNumber);
         suggestPlan();
-
     }
     else {
         userAnswer.set(QandAList.currentQuestion, answerNumber);
