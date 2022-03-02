@@ -3,7 +3,6 @@
     padding: 0;
 }
 
-
 .body {
     margin: 0;
     padding: 0;
@@ -27,6 +26,68 @@
 
 .logo {
     height: 5em;
+}
+
+.wrapper {
+    padding: 0;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.find_my_plan_wrapper {
+    display: flex;    
+    background-image: url(https://www.vivint.com/sites/default/files/styles/desktop_1600_hq/public/image/2021-10/HomeTest-ODCStory-1600_0.png.webp?itok=OnmaAO0u);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-color: #edf2f2;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 947px;
+    height:509px;
+    margin: 20px;
+}
+
+.big-text-s {
+    font-size: 2em;
+    margin-bottom: 1.7em;
+    font-weight: bold;
+}
+
+.small-text-s {
+    font-size: 0.7em;
+    margin-bottom: 1em;
+    letter-spacing: 0.2em;
+}
+
+.extra-text-s {
+    display: flex;
+    font-size: 4px;
+    letter-spacing: 0.2em;
+}
+
+.big-text-s, .small-text-s, .extra-text-s {
+    font-weight: bold;
+}
+
+.plan_content {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    text-align: left;
+    flex: 3;
+    padding: 0 0 0 4em;
+}
+
+.big-padding-top{
+    padding-top: 4em;
+}
+
+.small-padding-bottom{
+    padding-bottom: 2em;
 }
 
 .content-wrapper {

@@ -322,6 +322,11 @@ function createTimeBanner() {
     document.body.appendChild(banner);
 }
 
+/**Functions for setting the link page for "Find My Vivint Plan" */
+createFindMyVivintPlanLink(){
+    
+}
+
 /* Every Function for Landing a Webpage*/
 
 setHeadHTML();
