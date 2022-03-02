@@ -98,7 +98,7 @@ body {
     flex: 0;
 }
 
-#suggestion_right_button {
+#suggestion_left_button {
     z-index: 1;
     position: absolute;
     display: flex;
@@ -109,7 +109,7 @@ body {
     width: 50px;
 }
 
-#suggestion_left_button {
+#suggestion_right_button {
     z-index: 1;
     position: absolute;
     display: flex;

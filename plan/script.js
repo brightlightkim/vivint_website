@@ -62,13 +62,13 @@ function makeVivintText() {
     const your_vivint_plan = document.createElement("h2");
     your_vivint_plan.className = "suggestion_main_text";
 
-    if (originalPlanNum == planNum){
+    if (originalPlanNum == planNum) {
         your_vivint_plan.innerHTML = "Your Vivint Plan is:";
     }
     else if (originalPlanNum < planNum) {
         your_vivint_plan.innerHTML = "Upgraded Vivint Plan is:";
     }
-    else{
+    else {
         your_vivint_plan.innerHTML = "Downgraded Vivint Plan is:";
     }
 
@@ -195,24 +195,27 @@ function changeStyle(state) {
     }
 }
 
-function changeSuggestion(state) {
-    if (state == true) {
-        if (planNum === 2) {
-            planNum = 0;
-        }
-        else {
-            planNum++;
-        }
+function plusSuggestion() {
+    if (planNum === 2) {
+        planNum = 0;
     }
     else {
-        if (planNum === 0) {
-            planNum = 2;
-        }
-        else {
-            planNum--;
-        }
+        planNum++;
     }
+    changeSuggestion();
+}
 
+function minusSuggestion() {
+    if (planNum === 0) {
+        planNum = 2;
+    }
+    else {
+        planNum--;
+    }
+    changeSuggestion();
+}
+
+function changeSuggestion() {
     var newSuggestion = makeSuggestionText();
     remove(document.getElementsByClassName("suggestion_text")[0]);
     var element = document.getElementsByClassName("suggestion_text")[0];
@@ -221,7 +224,7 @@ function changeSuggestion(state) {
     var parentDiv = document.body.querySelectorAll(".suggestion_box")[0];
     parentDiv.insertBefore(newSuggestion, insertPlace);
 
-    if(planNum == 2){
+    if (planNum == 2) {
         changeStyle(true);
     }
     else {
@@ -230,33 +233,33 @@ function changeSuggestion(state) {
 }
 
 function makeSuggestionButtons(wrapper) {
-
-    const right_button = makeDiv("button");
     const left_button = makeDiv("button");
-    right_button.style.cursor = "pointer";
+    const right_button = makeDiv("button");
     left_button.style.cursor = "pointer";
-
-    var right_img = document.createElement('img');
-    right_img.className = "icon flip";
-    right_img.src = "https://www.freeiconspng.com/thumbs/white-arrow-png/white-arrow-transparent-png-22.png";
-    right_img.style.padding = "0em";
+    right_button.style.cursor = "pointer";
 
     var left_img = document.createElement('img');
-    left_img.className = "icon";
+    left_img.className = "icon flip";
     left_img.src = "https://www.freeiconspng.com/thumbs/white-arrow-png/white-arrow-transparent-png-22.png";
     left_img.style.padding = "0em";
 
-
-    right_button.setAttribute("id", "suggestion_right_button");
-    right_button.addEventListener("click", changeSuggestion);
+    var right_img = document.createElement('img');
+    right_img.className = "icon";
+    right_img.src = "https://www.freeiconspng.com/thumbs/white-arrow-png/white-arrow-transparent-png-22.png";
+    right_img.style.padding = "0em";
 
     left_button.setAttribute("id", "suggestion_left_button");
-    left_button.addEventListener("click", changeSuggestion);
+    left_button.addEventListener("click", minusSuggestion);
+
+    right_button.setAttribute("id", "suggestion_right_button");
+    right_button.addEventListener("click", plusSuggestion);
+
     right_button.appendChild(right_img);
     left_button.appendChild(left_img);
 
-    wrapper.appendChild(right_button);
     wrapper.appendChild(left_button);
+    wrapper.appendChild(right_button);
+
     return wrapper;
 }
 
