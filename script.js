@@ -364,13 +364,15 @@ function createCheckHomeSafetyTest(){
     img.src = "https://cammy-marketing.s3.amazonaws.com/2015/02/1424795684/burglar-front-house-dark.jpg";
     
     const small_text_1 = createDivWithText("small-text-s", "FIND YOUR HOME SAFETY GRADE");
+    small_text_1.style.marginTop = "20px";
     const small_text_2 = createDivWithText("small-text-s big-padding-top", "CHECK YOUR HOME SAFETYNESS FOR FREE");
 
-    const big_text = createDivWithText("big-text-s small-padding-bottom", "CHECK MY HOME SAFETY");
+    const big_text = createDivWithText("big-text-s", "CHECK MY HOME SAFETY");
 
     const button = createImageLink("./plan/findmyplan.html", "https://www.iconsdb.com/icons/preview/white/phone-xxl.png", "");
     button.className = "button";
-    button.innerHTML = "CHECK HOME SAFETY";
+    button.innerHTML = "SAFETY TEST";
+    button.style.margin = "20px";
 
     plan_content.appendChild(small_text_1);
     plan_content.appendChild(big_text);

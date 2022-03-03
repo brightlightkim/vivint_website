@@ -46,7 +46,7 @@ body>div {
     align-items: center;
     justify-content: center;
     width: 947px;
-    height: 509px;
+    height: 450px;
     overflow: hidden;
     background-color: #edf2f2;
 }
@@ -65,7 +65,7 @@ body>div {
     height: auto;
     display: flex;
     width: 500px;
-    height: 509px;
+    height: 450px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
