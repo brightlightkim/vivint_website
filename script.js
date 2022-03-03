@@ -323,8 +323,34 @@ function createTimeBanner() {
 }
 
 /**Functions for setting the link page for "Find My Vivint Plan" */
-createFindMyVivintPlanLink(){
-    
+
+function createFindMyVivintPlanLink() {
+    const wrapper = createDiv("wrapper");
+    const find_my_plan_wrapper = createDiv("find_my_plan_wrapper");
+    const plan_content = createDiv("plan_content");
+
+    const small_text_1 = createDivWithText("small-text-s", "SEE WHAT PLAN IS AVAILABLE");
+    const small_text_2 = createDivWithText("small-text-s big-padding-top", "FIND MY CUSTOMIZED PLAN");
+
+    const big_text = createDivWithText("big-text-s small-padding-bottom", "FIND MY VIVINT PLAN");
+
+    const button = createImageLink("./plan/findmyplan.html", "https://www.iconsdb.com/icons/preview/white/phone-xxl.png", "");
+    button.className = "button";
+    button.innerHTML = "Find My Plan";
+
+    const empty = createDiv("Find My Plan");
+
+    plan_content.appendChild(small_text_1);
+    plan_content.appendChild(big_text);
+    plan_content.appendChild(small_text_2);
+    plan_content.appendChild(button);
+    plan_content.appendChild(empty);
+
+    find_my_plan_wrapper.appendChild(plan_content);
+
+    wrapper.appendChild(find_my_plan_wrapper);
+
+    document.body.appendChild(wrapper);
 }
 
 /* Every Function for Landing a Webpage*/
@@ -333,10 +359,10 @@ setHeadHTML();
 createHeader();
 createMainMessage();
 settingCountDownTime();
+createFindMyVivintPlanLink();
 if (valid) {
     createTimeBanner();
     var countInterval = setInterval(function () {
         countDown();
     }, 1000);
 }
-
