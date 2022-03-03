@@ -409,12 +409,13 @@ function breakMessage(message) {
     return span;
 }
 
-function createVideo(videoLink, videoMessage) {
+function createVideo(videoNum, videoLink, videoMessage) {
     const wrapper = createDiv("wrapper");
     const video_mask = createDiv("video-mask");
     const video = document.createElement('video');
     
     const message = createDiv("video-text");
+    message.setAttribute('id', "video"+videoNum);
     const span = breakMessage(videoMessage);
 
     message.appendChild(span);
@@ -452,5 +453,5 @@ if (valid) {
     }, 1000);
 }
 
-createVideo("./videos/vivint.mp4", "Protect your home with a Vivint system that stops crime before it starts");
+createVideo(1, "./videos/vivint.mp4", "Protect your home with a Vivint system that stops crime before it starts");
 

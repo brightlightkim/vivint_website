@@ -482,12 +482,15 @@ video {
 .video-text {
     position: absolute;
     z-index: 1;
-    width: 600px;
-    top: 1500px;
+    width: 600px;    
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;
     color: #ffffff;
+}
+
+#video1 {
+    top: 1500px;
 }
