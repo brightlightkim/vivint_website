@@ -3,7 +3,7 @@
     padding: 0;
 }
 
-.body {
+body {
     margin: 0;
     padding: 0;
     font-family: Helvetica;
@@ -11,6 +11,10 @@
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     width: 100%;
+}
+
+body>div {
+    margin: 0 0 20px 0;
 }
 
 .header {
@@ -37,19 +41,17 @@
 }
 
 .find_my_plan_wrapper {
-    display: flex;    
+    display: flex;
     background-image: url(https://www.vivint.com/sites/default/files/styles/desktop_1600_hq/public/image/2021-10/HomeTest-ODCStory-1600_0.png.webp?itok=OnmaAO0u);
     background-position: center;
     background-repeat: no-repeat;
-    background-size:contain;
+    background-size: contain;
     background-color: #edf2f2;
     border-radius: 20px;
     align-items: center;
     justify-content: center;
     width: 947px;
-    height:509px;
-    margin: 20px;
-    margin-bottom: 6em;
+    height: 509px;
 }
 
 .big-text-s {
@@ -83,11 +85,11 @@
     padding: 0 0 0 4em;
 }
 
-.big-padding-top{
+.big-padding-top {
     padding-top: 4em;
 }
 
-.small-padding-bottom{
+.small-padding-bottom {
     padding-bottom: 2em;
 }
 
@@ -223,7 +225,7 @@
 .time-box p {
     padding-top: 0.4em;
     font-size: 1.6em;
-    
+
 }
 
 .time-box span {
@@ -242,7 +244,7 @@
 
     .content-wrapper {
         background-image: url(https://cdn.optimizely.com/img/12265111463/a59dc44d7000439d95d7ddf3f072ff90.jpg);
-        background-size:cover 700px;
+        background-size: cover 700px;
         flex-direction: column;
         width: 100%;
         margin-bottom: 6em;
@@ -341,11 +343,12 @@
 @media only screen and (min-width:361px) and (max-width:767px) {
     .header {
         height: 4.5em;
-    } 
+    }
+
     .logo {
         height: 4.5em;
     }
-    
+
     .content-wrapper {
         background-image: url(https://cdn.optimizely.com/img/12265111463/b2e16202c5d749f996fd6ef186f9ea8f.jpg);
         background-size: cover 600px;
@@ -395,7 +398,7 @@
         background-color: #80332e;
         margin-bottom: 0;
         line-height: 0em;
-        
+
     }
 
     .text-box {
@@ -450,28 +453,41 @@
     }
 }
 
-.jb-box { 
-    width: 100%; 
-    height: 500px; 
+.jb-box {
+    width: 100%;
+    height: 500px;
     overflow: hidden;
-    margin: 0px auto; 
-    position: relative; 
+    margin: 0px auto;
+    position: relative;
 }
 
-video { 
-    width: 90%; 
+video {
+    width: 100%;
 }
 
-.jb-text { 
-    position: absolute; 
-    top: 50%; 
-    width: 100%; 
+.video-mask {
+    width: 947px;
+    position: relative;
+    z-index: -1;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 6em;
 }
 
-.jb-text p { 
-    margin-top: -24px; 
-    text-align: center; 
-    font-size: 48px; 
-    color: #ffffff; 
+.video-text {
+    position: absolute;
+    z-index: 1;
+    width: 600px;
+    top: 1500px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ffffff;
 }
-

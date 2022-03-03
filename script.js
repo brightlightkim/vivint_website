@@ -330,7 +330,7 @@ function createFindMyVivintPlanLink() {
     const plan_content = createDiv("plan_content");
 
     const small_text_1 = createDivWithText("small-text-s", "SEE WHAT PLAN IS AVAILABLE");
-    const small_text_2 = createDivWithText("small-text-s big-padding-top", "FIND MY CUSTOMIZED PLAN");
+    const small_text_2 = createDivWithText("small-text-s big-padding-top", "FIND CUSTOMIZED VIVINT PLAN FOR FREE");
 
     const big_text = createDivWithText("big-text-s small-padding-bottom", "FIND MY VIVINT PLAN");
 
@@ -353,6 +353,91 @@ function createFindMyVivintPlanLink() {
     document.body.appendChild(wrapper);
 }
 
+/**Create a Video */
+
+function breakMessage(message) {
+    var span = document.createElement('span');
+    /**40 characters >> change the line >> if it includes the word
+     * include that word and change.
+     * Then cut the word and do the break thing again.
+     * Do this until the message length is below 40. 
+     * If the word gets too long for the divide position,
+     * Then it go backs one character each time to find the space 
+     * to break the sentence. 
+     */
+    var divideLocation = 35;
+    var checkRight = false;
+
+    var breakLine = document.createElement('br');
+
+    while (message.length > 35) {
+        if (!checkRight) {
+            if (message.charAt(divideLocation) != ' ') {
+                divideLocation++;
+            }
+            else {
+                if (divideLocation < 50) {
+                    span.innerHTML += message.substring(0, divideLocation).trim();
+                    span.appendChild(breakLine);
+                    message = message.substring(divideLocation);
+                    divideLocation = 35; /**resetting the location */                    
+                }
+                else {
+                    checkRight = true;
+                    divideLocation = 35;
+                }
+            }
+        }
+        else {
+            if (message.charAt(divideLocation) != ' ') {
+                divideLocation--;
+            }
+            else {
+                span.innerHTML += message.substring(0, divideLocation).trim();
+                span.appendChild(breakLine);
+                message = message.substring(divideLocation);
+                divideLocation = 35; /**resetting the location */                
+            }
+        }
+
+    }
+    /**Last part */
+    if (message.length != 0) {
+        span.innerHTML += message.substring(0, message.length).trim();
+    }
+
+    return span;
+}
+
+function createVideo(videoLink, videoMessage) {
+    const wrapper = createDiv("wrapper");
+    const video_mask = createDiv("video-mask");
+    const video = document.createElement('video');
+    
+    const message = createDiv("video-text");
+    const span = breakMessage(videoMessage);
+
+    message.appendChild(span);
+
+    video.src = videoLink;
+    video.controls = false;
+    video.autoplay = true;
+    video.muted = true;
+    video.loop = true;
+    video.preload = "none";
+    video.innerHTML = "Your Browser does not support the video tag";
+
+    video_mask.appendChild(video);
+
+    wrapper.appendChild(video_mask);
+
+
+    /**wrapper.appendChild(message);*/
+
+    document.body.appendChild(wrapper);
+    document.body.appendChild(message);
+}
+
 /* Every Function for Landing a Webpage*/
 
 setHeadHTML();
@@ -366,3 +451,6 @@ if (valid) {
         countDown();
     }, 1000);
 }
+
+createVideo("./videos/vivint.mp4", "Protect your home with a Vivint system that stops crime before it starts");
+
