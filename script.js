@@ -164,6 +164,9 @@ function countDown() {
         var element = document.getElementsByClassName("banner")[0];
         element.parentNode.removeChild(element);
         clearInterval(countInterval);
+
+        var buffer = document.getElementsByClassName("padding")[0];
+        element.parentNode.removeChild(buffer);
     }
 }
 
@@ -309,6 +312,7 @@ function createMainMessage() {
 
 function createTimeBanner() {
     const banner = document.createElement('a');
+
     banner.href = "https://www.vivint.com/packages/home-security";
     /**This link can be changed to a desired url */
     banner.className = "banner";
@@ -318,7 +322,7 @@ function createTimeBanner() {
 
     banner.appendChild(text_box);
     banner.appendChild(timer);
-
+    
     document.body.appendChild(banner);
 }
 
@@ -338,17 +342,47 @@ function createFindMyVivintPlanLink() {
     button.className = "button";
     button.innerHTML = "Find My Plan";
 
-    const empty = createDiv("Find My Plan");
+    plan_content.appendChild(small_text_1);
+    plan_content.appendChild(big_text);
+    plan_content.appendChild(small_text_2);
+    plan_content.appendChild(button);
+
+    find_my_plan_wrapper.appendChild(plan_content);
+
+    wrapper.appendChild(find_my_plan_wrapper);
+
+    document.body.appendChild(wrapper);
+}
+
+/**Functions for creating the link page for "Check My Home Safety" */
+function createCheckHomeSafetyTest(){
+    const wrapper = createDiv("wrapper");
+    const check_home_safety_wrapper = createDiv("check_home_safety_wrapper");
+    const plan_content = createDiv("safety_content");
+    const image_mask = createDiv("image-mask");
+    const img = document.createElement('img');
+    img.src = "https://cammy-marketing.s3.amazonaws.com/2015/02/1424795684/burglar-front-house-dark.jpg";
+    
+    const small_text_1 = createDivWithText("small-text-s", "FIND YOUR HOME SAFETY GRADE");
+    const small_text_2 = createDivWithText("small-text-s big-padding-top", "CHECK YOUR HOME SAFETYNESS FOR FREE");
+
+    const big_text = createDivWithText("big-text-s small-padding-bottom", "CHECK MY HOME SAFETY");
+
+    const button = createImageLink("./plan/findmyplan.html", "https://www.iconsdb.com/icons/preview/white/phone-xxl.png", "");
+    button.className = "button";
+    button.innerHTML = "CHECK HOME SAFETY";
 
     plan_content.appendChild(small_text_1);
     plan_content.appendChild(big_text);
     plan_content.appendChild(small_text_2);
     plan_content.appendChild(button);
-    plan_content.appendChild(empty);
 
-    find_my_plan_wrapper.appendChild(plan_content);
+    image_mask.appendChild(img);
 
-    wrapper.appendChild(find_my_plan_wrapper);
+    check_home_safety_wrapper.appendChild(image_mask);
+    check_home_safety_wrapper.appendChild(plan_content);
+
+    wrapper.appendChild(check_home_safety_wrapper);
 
     document.body.appendChild(wrapper);
 }
@@ -439,13 +473,20 @@ function createVideo(videoNum, videoLink, videoMessage) {
     document.body.appendChild(message);
 }
 
+/**buffer for showing all */
+function createBuffer(){
+    const buffer = createDiv("padding");
+    document.body.appendChild(buffer);
+}
+
 /* Every Function for Landing a Webpage*/
 
 setHeadHTML();
 createHeader();
 createMainMessage();
-settingCountDownTime();
 createFindMyVivintPlanLink();
+
+settingCountDownTime();
 if (valid) {
     createTimeBanner();
     var countInterval = setInterval(function () {
@@ -454,4 +495,5 @@ if (valid) {
 }
 
 createVideo(1, "./videos/vivint.mp4", "Protect your home with a Vivint system that stops crime before it starts");
-
+createCheckHomeSafetyTest();
+createBuffer();
