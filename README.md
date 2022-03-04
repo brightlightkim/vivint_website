@@ -1,4 +1,4 @@
-# vivint_code_test
+# vivint_Website
 Vivint Coding Test for developing website using JavaScript and CSS.
 
 # Full Page
