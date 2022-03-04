@@ -338,7 +338,7 @@ function createFindMyVivintPlanLink() {
 
     const big_text = createDivWithText("big-text-s small-padding-bottom", "FIND MY VIVINT PLAN");
 
-    const button = createImageLink("./plan/findmyplan.html", "https://www.iconsdb.com/icons/preview/white/phone-xxl.png", "");
+    const button = createImageLink("./test/safetytest.html", "https://www.iconsdb.com/icons/preview/white/phone-xxl.png", "");
     button.className = "button";
     button.innerHTML = "Find My Plan";
 
