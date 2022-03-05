@@ -10,13 +10,17 @@ var Q_A = {
         "How many safety alarms do you have?",
     ],
     answerList: [
-        ["Yes", "No"],
-        ["None", "1 Camera", "2 Cameras", "3 Cameras", "More"],
+        ["Yes", "No"],/**100% or 0% */
+        ["None", "1 Camera", "2 Cameras", "3+ Cameras"],/**0% 50% 70% 100% */
         ["None", "1 Alarm", "2 Alarms", "3+ Alarms "],
     ],
     pair: [
         [0, 0], [1, 1], [2, 1], [3, 0],
         [4, 0], [5, 0], [6, 0], [7, 2],
+    ],
+    points: [/**Different Maximum Grade based on the importance of each */
+        [0, 20], [1, 10], [2, 10], [3, 5],
+        [4, 5], [5, 4], [6, 8], [7, 10],
     ],
     specList: [
         "Lock", "Outdoor Cameras", "Indoor Cameras", "Doorbell Camera",
@@ -29,8 +33,9 @@ var Q_A = {
 var planNum = null;
 var originalPlanNum = null;
 
-var userGrade = 99;
-var userPercentile = 99;
+const maximumPoint = 72;
+var userGrade = 30;
+var userPercentile = 30;
 
 const canvasWidth = 500;
 const canvasHeight = 500;
@@ -38,6 +43,55 @@ const canvasHeight = 500;
 const userAnswer = new Map();
 
 const arrow_icon_address = "https://www.freeiconspng.com/thumbs/white-arrow-png/white-arrow-transparent-png-22.png"
+
+/**Data Functions 
+ * In the future move the data into the backend
+ * For now we store them in the local server.
+ * To calculate the real percentile based on users' information,
+ * I need data from real Vivint Webpage. 
+*/
+function calculateUserGrade(){
+    userGrade = 0;
+    userPercentile = 0;
+    if (userAnswer.length != 0){
+        calculateGrade();
+    }
+    else {
+        userGrade = 0;
+        userPercentile = 0;
+    }
+
+    function calculateGrade(){        
+        var grade = 0;
+        for (let i = 0; i < Q_A.questionList.length; i++){
+            var answer = userAnswer.get(i)
+            if (answer != null){
+                const userAnswerNum = Q_A.pair(i);
+                
+                if (userAnswerNum === 0){/** Yes or no 100% or 0% */
+                    if (answer === 0){
+                        grade += Q_A.points[i][1];
+                    }/**else is 0 so not do anything */
+                }
+                else{ /**0 30% 70% 100% */
+                    if (answer === 1){
+                        grade += (0.3 * Q_A.points[i][1]);
+                    }
+                    else if (answer === 2){
+                        grade += (0.7 * Q_A.points[i][1]);
+                    }
+                    else if (answer === 3){
+                        grade += Q_A.points[i][1];
+                    }
+                }
+            }
+        }
+        grade = (Math.round(Math.round(grade)/maximumPoint) * 100);
+        userGrade = grade;
+        userPercentile = 1;
+    }
+}
+
 /**Basic Functions */
 
 function remove(parent) {
@@ -84,6 +138,8 @@ function landingSafetyGradePage() {
     const wrapper = makeDiv("wrapper");
     const text_wrapper = makeTextWrapper();
     const content_wrapper = makeDiv("content_wrapper");
+
+    calculateUserGrade();
     const grade_container = makeGradeContainer();
     const spec_container = makeSpecContainer();
     const medal_container = makeMedalContainer();
@@ -108,37 +164,37 @@ function landingSafetyGradePage() {
         const gradeContainer = makeDiv("box center relative");
         const canvas = makeCanvas("grade_circle");
         const grade = makeDivWithID("grade");
-        grade.innerHTML= getLetterGrade();
+        grade.innerHTML = getLetterGrade();
         gradeContainer.appendChild(canvas);
         gradeContainer.appendChild(grade);
         return gradeContainer;
 
-        function getLetterGrade(){
-            if (userGrade < 20){
+        function getLetterGrade() {
+            if (userGrade < 20) {
                 return 'F';
             }
-            else if (userGrade < 40){
+            else if (userGrade < 40) {
                 return 'C-';
             }
-            else if (userGrade < 60){
+            else if (userGrade < 60) {
                 return 'C';
             }
-            else if (userGrade < 70){
+            else if (userGrade < 70) {
                 return 'C+';
             }
-            else if (userGrade < 75){
+            else if (userGrade < 75) {
                 return 'B-';
             }
-            else if (userGrade < 80){
+            else if (userGrade < 80) {
                 return 'B';
             }
-            else if (userGrade < 85){
+            else if (userGrade < 85) {
                 return 'B+';
             }
-            else if (userGrade < 90){
+            else if (userGrade < 90) {
                 return 'A-';
             }
-            else if (userGrade < 95){
+            else if (userGrade < 95) {
                 return 'A';
             }
             else {
@@ -164,7 +220,7 @@ function landingSafetyGradePage() {
                 else {
                     var answerNum = Q_A.pair[i][1];
                     var nullAnswerNum = 0;
-                    if (answerNum === 0){
+                    if (answerNum === 0) {
                         nullAnswerNum = 1;
                     }
                     user_spec = makeTextElement('td', Q_A.answerList[answerNum][nullAnswerNum]);
@@ -190,13 +246,13 @@ function landingSafetyGradePage() {
         const top = makeDivWithID("top");
         const percent = makeDivWithID("percent");
 
-        if (userGrade > 50){
+        if (userPercentile > 50) {
             top.innerHTML = "TOP";
-            percent.innerHTML = userPercentile;
+            percent.innerHTML = 100 - userPercentile;
         }
-        else{
+        else {
             top.innerHTML = "BOTTOM";
-            percent.innerHTML = 100- userPercentile;
+            percent.innerHTML = userPercentile;
         }
 
         medal_conatiner.appendChild(canvas);
@@ -405,7 +461,7 @@ function countUp() {
 
     // Run the animation on all elements with a class of ‘countup’
     const runAnimations = () => {
-        const countUpNum2 = document.getElementById('percent'); 
+        const countUpNum2 = document.getElementById('percent');
         animateCountUp(countUpNum2);
     };
 
