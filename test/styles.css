@@ -51,14 +51,18 @@ body {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate( -50%, -50% );
+    transform: translate(-50%, -50%);
     font-size: 6em;
+}
+
+#grade {
+    font-weight: bold;
 }
 
 #top {
     left: 50%;
     top: 50%;
-    transform: translate( -50%, -50% );
+    transform: translate(-50%, -50%);
     font-size: 1.7em;
     z-index: 1;
 }
@@ -66,7 +70,7 @@ body {
 #percent {
     left: 50%;
     top: 63%;
-    transform: translate( -50%, -50% );
+    transform: translate(-50%, -50%);
     font-size: 3em;
     font-weight: bold;
     z-index: 1;
@@ -107,4 +111,15 @@ ul li:before {
 li {
     margin-bottom: 0.2em;
     font-size: 1.2em;
+}
+table{
+    margin-top: 0.7em;
+}
+td{
+    padding: 0.1em 0;
+    font-size: 1.2em;
+}
+tbody > tr > :nth-child(2){ 
+    text-align: center;
+    padding-right: 2em;
 }

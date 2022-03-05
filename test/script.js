@@ -1,11 +1,264 @@
+var Q_A = {
+    questionList: [
+        "Do you have your lock in your house?",
+        "How many outdoor cameras do you have?",
+        "How many indoor cameras do you have?",
+        "Do you have a doorbell camera?",
+        "Do you have a smart lock system?",
+        "Do you have a garage door control?",
+        "Do you have a car guard?",
+        "How many safety alarms do you have?",
+    ],
+    answerList: [
+        ["Yes", "No"],
+        ["None", "1 Camera", "2 Cameras", "3 Cameras", "More"],
+        ["None", "1 Alarm", "2 Alarms", "3+ Alarms "],
+    ],
+    pair: [
+        [0, 0], [1, 1], [2, 1], [3, 0],
+        [4, 0], [5, 0], [6, 0], [7, 2],
+    ],
+    specList: [
+        "Lock", "Outdoor Cameras", "Indoor Cameras", "Doorbell Camera",
+        "Smart Lock System", "Garage Door Control", "Car Guard", "Safety Alarms",
+    ],
+    currentQuestion: 0,
+    progress: 10,
+}
 
+var planNum = null;
+var originalPlanNum = null;
+
+var userGrade = 99;
+var userPercentile = 99;
+
+const canvasWidth = 500;
+const canvasHeight = 500;
+
+const userAnswer = new Map();
+
+const arrow_icon_address = "https://www.freeiconspng.com/thumbs/white-arrow-png/white-arrow-transparent-png-22.png"
+/**Basic Functions */
+
+function remove(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
+function makeDiv(className) {
+    var div = document.createElement('div');
+    div.className = className;
+    return div;
+}
+
+function makeDivWithID(id) {
+    var div = document.createElement('div');
+    div.setAttribute('id', id);
+    return div;
+}
+
+function makeText(className, textInfo) {
+    var text = document.createElement('h2');
+    text.className = className;
+    text.innerHTML = textInfo;
+    return text;
+}
+
+function makeTextElement(tag, text) {
+    var element = document.createElement(tag);
+    element.innerHTML = text;
+    return element;
+}
+
+function makeCanvas(id) {
+    var canvas = document.createElement("canvas");
+    canvas.setAttribute('id', id);
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+    return canvas;
+}
+
+/**DOM For Landing the Safety Grade Page */
+function landingSafetyGradePage() {
+    const wrapper = makeDiv("wrapper");
+    const text_wrapper = makeTextWrapper();
+    const content_wrapper = makeDiv("content_wrapper");
+    const grade_container = makeGradeContainer();
+    const spec_container = makeSpecContainer();
+    const medal_container = makeMedalContainer();
+
+    content_wrapper.appendChild(grade_container);
+    content_wrapper.appendChild(spec_container);
+    content_wrapper.appendChild(medal_container);
+
+    wrapper.appendChild(text_wrapper);
+    wrapper.appendChild(content_wrapper);
+
+    document.body.appendChild(wrapper);
+
+    function makeTextWrapper() {
+        const text_wrapper = makeDiv("text_wrapper");
+        const main_text = makeTextElement('h1', "My Home Safety Grade is:");
+        text_wrapper.appendChild(main_text);
+        return text_wrapper;
+    }
+
+    function makeGradeContainer() {
+        const gradeContainer = makeDiv("box center relative");
+        const canvas = makeCanvas("grade_circle");
+        const grade = makeDivWithID("grade");
+        grade.innerHTML= getLetterGrade();
+        gradeContainer.appendChild(canvas);
+        gradeContainer.appendChild(grade);
+        return gradeContainer;
+
+        function getLetterGrade(){
+            if (userGrade < 20){
+                return 'F';
+            }
+            else if (userGrade < 40){
+                return 'C-';
+            }
+            else if (userGrade < 60){
+                return 'C';
+            }
+            else if (userGrade < 70){
+                return 'C+';
+            }
+            else if (userGrade < 75){
+                return 'B-';
+            }
+            else if (userGrade < 80){
+                return 'B';
+            }
+            else if (userGrade < 85){
+                return 'B+';
+            }
+            else if (userGrade < 90){
+                return 'A-';
+            }
+            else if (userGrade < 95){
+                return 'A';
+            }
+            else {
+                return 'A+';
+            }
+        }
+    }
+
+    function makeSpecContainer() {
+        const spec_container = makeDiv("box left");
+        const spec_header = makeTextElement('h3', "Safe Home Devices");
+        const spec_List = makeSpecList();
+        function makeSpecList() {
+            const table = document.createElement('table');
+            const tbody = document.createElement('tbody');
+            for (let i = 0; i < Q_A.specList.length; i++) {
+                const tr = document.createElement('tr');
+                const spec_name = makeTextElement('td', Q_A.specList[i]);
+                var user_spec = null;
+                if (userAnswer.get(i) != null) {
+                    user_spec = makeTextElement('td', userAnswer.get(i));
+                }
+                else {
+                    var answerNum = Q_A.pair[i][1];
+                    var nullAnswerNum = 0;
+                    if (answerNum === 0){
+                        nullAnswerNum = 1;
+                    }
+                    user_spec = makeTextElement('td', Q_A.answerList[answerNum][nullAnswerNum]);
+                }
+                tr.appendChild(spec_name);
+                tr.appendChild(user_spec);
+
+                tbody.appendChild(tr);
+            }
+            table.appendChild(tbody);
+
+            return table;
+        }
+        spec_container.appendChild(spec_header);
+        spec_container.appendChild(spec_List);
+
+        return spec_container;
+    }
+
+    function makeMedalContainer() {
+        const medal_conatiner = makeDiv("box center relative");
+        const canvas = makeCanvas("medal");
+        const top = makeDivWithID("top");
+        const percent = makeDivWithID("percent");
+
+        if (userGrade > 50){
+            top.innerHTML = "TOP";
+            percent.innerHTML = userPercentile;
+        }
+        else{
+            top.innerHTML = "BOTTOM";
+            percent.innerHTML = 100- userPercentile;
+        }
+
+        medal_conatiner.appendChild(canvas);
+        medal_conatiner.appendChild(top);
+        medal_conatiner.appendChild(percent);
+
+        return medal_conatiner;
+    }
+}
+
+
+/**FadeIn & FadeOut Functions */
+
+function fadeIn(target) {
+    var level = 0;
+    var inTimer = null;
+    inTimer = setInterval(function () {
+        level = fadeInAction(target, level, inTimer);
+    }, 50);
+}
+
+function fadeInAction(target, level, inTimer) {
+    level = level + 0.1;
+    changeOpacity(target, level);
+    if (level > 1) {
+        clearInterval(inTimer);
+    }
+    return level;
+}
+
+function fadeOut(target) {
+    var level = 1;
+    var outTimer = null;
+    outTimer = setInterval(function () {
+        level = fadeOutAction(target, level, outTimer);
+    }, 50);
+}
+
+function fadeOutAction(target, level, outTimer) {
+    level = level - 0.1;
+    changeOpacity(target, level);
+    if (level < 0) {
+        clearInterval(outTimer);
+    }
+    return level;
+}
+
+function changeOpacity(target, level) {
+    var obj = target;
+    obj.style.opacity = level;
+    obj.style.MozOpacity = level;
+    obj.style.KhtmlOpacity = level;
+    obj.style.MsFilter = "'progid: DXImageTransform.Microsoft.Alpha(Opacity=" + (level * 100) + ")'";
+    obj.style.filter = "alpha(opacity=" + (level * 100) + ");";
+}
 
 function makeGrade() {
     var canvas = document.getElementById('grade_circle');
     var ctx = canvas.getContext('2d');
 
     var radius = 220;
-    var endPercent = 40;
+    var endPercent = userPercentile;
     var CurPer = 0;
     var circ = Math.PI * 2;
     var quart = Math.PI / 2;
@@ -47,7 +300,7 @@ function makeMedal() {
     var ctx = canvas.getContext('2d');
 
     var radius = 140;
-    var endPercent = 40;
+    var endPercent = userPercentile;
     var CurPer = 0;
     var circ = Math.PI * 2;
     var quart = Math.PI / 2;
@@ -113,10 +366,6 @@ function makeMedal() {
     drawCircle();
 }
 
-makeGrade();
-makeMedal();
-
-
 function countUp() {
     // How long you want the animation to take, in ms
     const animationDuration = 2000;
@@ -156,11 +405,13 @@ function countUp() {
 
     // Run the animation on all elements with a class of ‘countup’
     const runAnimations = () => {
-        const countupNum = document.getElementById('percent');
-        animateCountUp(countupNum);
+        const countUpNum2 = document.getElementById('percent'); 
+        animateCountUp(countUpNum2);
     };
 
     runAnimations();
 }
-
+landingSafetyGradePage();
+makeGrade();
+makeMedal();
 countUp();
