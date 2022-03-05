@@ -338,7 +338,7 @@ function createFindMyVivintPlanLink() {
 
     const big_text = createDivWithText("big-text-s small-padding-bottom", "FIND MY VIVINT PLAN");
 
-    const button = createImageLink("./test/safetytest.html", "https://www.iconsdb.com/icons/preview/white/phone-xxl.png", "");
+    const button = createImageLink("./plan/findmyplan.html", "https://www.iconsdb.com/icons/preview/white/phone-xxl.png", "");
     button.className = "button";
     button.innerHTML = "Find My Plan";
 
@@ -368,8 +368,8 @@ function createCheckHomeSafetyTest(){
     const small_text_2 = createDivWithText("small-text-s big-padding-top", "CHECK YOUR HOME SAFETYNESS FOR FREE");
 
     const big_text = createDivWithText("big-text-s", "CHECK MY HOME SAFETY");
-
-    const button = createImageLink("./plan/findmyplan.html", "https://www.iconsdb.com/icons/preview/white/phone-xxl.png", "");
+9
+    const button = createImageLink("./test/safetytest.html", "https://www.iconsdb.com/icons/preview/white/phone-xxl.png", "");
     button.className = "button";
     button.innerHTML = "SAFETY TEST";
     button.style.margin = "20px";

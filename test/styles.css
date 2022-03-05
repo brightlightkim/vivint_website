@@ -1,0 +1,110 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #141c1c;
+}
+
+.wrapper, .content_wrapper, .text_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper {
+    margin: 2em;
+    flex-direction: column;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 20px;
+    width: 20em;
+    height: 20em;
+    background-color: rgb(233, 233, 233);
+    margin: 0.5em;
+    margin-top: 1em;
+}
+
+.text_wrapper {
+    width: 60em;
+    height: 10em;
+    border-radius: 20px;
+    background-color: rgb(233, 233, 233);
+    border: 1em;
+    border-style: solid;
+    border-color: #141c1c;
+}
+
+#grade_circle, #medal {
+    width: 18em;
+    height: 18em;
+    z-index: 1;
+}
+
+#grade, #top, #percent {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate( -50%, -50% );
+    font-size: 6em;
+}
+
+#top {
+    left: 50%;
+    top: 50%;
+    transform: translate( -50%, -50% );
+    font-size: 1.7em;
+    z-index: 1;
+}
+
+#percent {
+    left: 50%;
+    top: 63%;
+    transform: translate( -50%, -50% );
+    font-size: 3em;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.relative {
+    position: relative;
+}
+
+.center {
+    align-items: center;
+}
+
+.left {
+    align-items: left;
+    padding-left: 2em;
+    width: 18em;
+}
+
+h1 {
+    font-size: 3em;
+    padding: 2em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+ul {
+    padding: 0.5em 0 0 0;
+    list-style: none;
+}
+
+ul li:before {
+    content: '✓ ';
+}
+
+li {
+    margin-bottom: 0.2em;
+    font-size: 1.2em;
+}
