@@ -49,6 +49,20 @@ var Q_A = {
     progress: 10,
 }
 
+var color = {
+    gold: "#f8d550",
+    light_gold: "#fbe880",
+    dark_gold: "#f7cc47",
+    silver: "#dadada",
+    light_silver: "#e6e6e6",
+    dark_silver: "#c2c2c2",
+    bronze: "#fcac71",
+    light_bronze: "#fed4be",
+    dark_bronze: "#fea15b",
+    blue: "#4571e6",
+    pink: "#ef8f8c",
+}
+
 var planNum = null;
 var originalPlanNum = null;
 
@@ -693,6 +707,7 @@ function suggestPlan() {
     const background = makeDiv("background");
     var background_img = makeDiv("background_img");
     const insertPlace = makeDiv("insertPlace");
+    const padding = makeDivWithID("padding");
 
     background_img = makeSuggestionButtons(background_img);
 
@@ -714,7 +729,7 @@ function suggestPlan() {
     background.appendChild(background_img);
 
     document.body.appendChild(background);
-
+    document.body.appendChild(padding);
 
 
     function makeVivintText() {

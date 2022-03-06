@@ -128,7 +128,7 @@ body {
 }
 
 .wrapper {
-    margin: 2em;
+    margin: 1em;
     flex-direction: column;
 }
 
@@ -371,4 +371,10 @@ tbody>tr> :nth-child(2) {
 
 li {
     margin-bottom: 0.2em;
+}
+
+#padding {
+    height: 496px;
+    width: 100%;
+    margin: 6em;
 }
