@@ -50,10 +50,9 @@ const arrow_icon_address = "https://www.freeiconspng.com/thumbs/white-arrow-png/
  * To calculate the real percentile based on users' information,
  * I need data from real Vivint Webpage. 
 */
-function calculateUserGrade(){
-    userGrade = 0;
-    userPercentile = 0;
-    if (userAnswer.length != 0){
+function calculateUserGrade() {
+    
+    if (userAnswer.length != 0) {
         calculateGrade();
     }
     else {
@@ -61,34 +60,34 @@ function calculateUserGrade(){
         userPercentile = 0;
     }
 
-    function calculateGrade(){        
+    function calculateGrade() {
         var grade = 0;
-        for (let i = 0; i < Q_A.questionList.length; i++){
+        for (let i = 0; i < Q_A.questionList.length; i++) {
             var answer = userAnswer.get(i)
-            if (answer != null){
-                const userAnswerNum = Q_A.pair(i);
-                
-                if (userAnswerNum === 0){/** Yes or no 100% or 0% */
-                    if (answer === 0){
+            if (answer != null) {
+                const userAnswerNum = Q_A.pair[i][1];
+
+                if (userAnswerNum === 0) {/** Yes or no 100% or 0% */
+                    if (answer === 0) {
                         grade += Q_A.points[i][1];
                     }/**else is 0 so not do anything */
                 }
-                else{ /**0 30% 70% 100% */
-                    if (answer === 1){
+                else { /**0 30% 70% 100% */
+                    if (answer === 1) {
                         grade += (0.3 * Q_A.points[i][1]);
                     }
-                    else if (answer === 2){
+                    else if (answer === 2) {
                         grade += (0.7 * Q_A.points[i][1]);
                     }
-                    else if (answer === 3){
+                    else if (answer === 3) {
                         grade += Q_A.points[i][1];
                     }
                 }
             }
         }
-        grade = (Math.round(Math.round(grade)/maximumPoint) * 100);
+        grade = Math.round((grade / maximumPoint) * 100);
         userGrade = grade;
-        userPercentile = 1;
+        userPercentile = grade;
     }
 }
 
@@ -132,12 +131,191 @@ function makeCanvas(id) {
     canvas.height = canvasHeight;
     return canvas;
 }
+/**DOM for Landing the Safety Question Page */
+function landingSafetyQuestionPage() {
+    makeHeader();
+    makeQuestionPage();
+
+    function makeHeader() {
+        var header = document.createElement('div');
+        header.className = "header";
+
+        var vividLink = document.createElement('a');
+        vividLink.href = "https://www.vivint.com";
+
+        var logo = document.createElement('img');
+        logo.className = "logo";
+        logo.src = "https://postfiles.pstatic.net/MjAyMjAyMjJfMjk3/MDAxNjQ1NDg1NzExMDk0.ZNCWcaEniMlVcUH-Iah1UhenPl0qCfSgGUes7OtzCpUg.-RKWgpd-Av4oTl9v8OREMhePivwoxfDs7JAXaM4-nXMg.PNG.upiioo/vivint_logo.PNG?type=w966";
+
+        vividLink.appendChild(logo);
+
+        header.appendChild(vividLink);
+
+        document.body.appendChild(header);
+    }
+
+    function makeQuestionPage() {
+
+        var content_wrapper = makeDiv("content_wrapper");
+
+        var progress_bar = makeProgressBar();
+
+        var content = makeQuestionContext();
+
+        var buttons = makeButton();
+
+        content_wrapper.appendChild(content);
+        content_wrapper.appendChild(progress_bar);
+        content_wrapper.appendChild(buttons);
+
+        document.body.appendChild(content_wrapper);
+    }
+
+    function changeQuestion() {
+        setProgress();
+        document.getElementsByClassName("progress_bar_begin")[0].style.width = Q_A.progress + "%";
+        var content = document.getElementsByClassName("content")[0];
+        remove(content);
+        makeQ_A(content);
+    }
+
+    function setProgress() {
+        Q_A.progress = Math.ceil(((Q_A.currentQuestion + 1) / Q_A.questionList.length) * 100);
+    }
+
+    function makeProgressBar() {
+        var wrapper = makeDiv("question_wrapper");
+
+        var td0 = document.createElement('td');
+        td0.innerHTML = "0%&nbsp;";
+
+        var progressBar = makeDiv("progress_bar");
+        var progressBarProgress = makeDiv("progress_bar_begin");
+        setProgress();
+        var progressStyle = Q_A.progress + "%";
+        progressBarProgress.style.width = progressStyle;
+        progressBar.appendChild(progressBarProgress);
+
+        var td100 = document.createElement('td');
+        td100.innerHTML = "100%";
+
+        wrapper.appendChild(td0);
+        wrapper.appendChild(progressBar);
+        wrapper.appendChild(td100);
+
+        return wrapper;
+    }
+
+    function makeButton() {
+        var wrapper = makeDiv("question_wrapper");
+
+        var button_right = makeDiv("button");
+        var right_icon = document.createElement('img');
+        right_icon.className = "icon";
+        right_icon.src = arrow_icon_address;
+        button_right.appendChild(right_icon);
+        button_right.addEventListener("click", nextButtonEvent);
+
+        wrapper.appendChild(button_right);
+
+        return wrapper;
+    }
+
+    function makeQ_A(content) {
+        /**Make Question */
+        var question = makeText("question", Q_A.questionList[Q_A.currentQuestion]);
+        content.appendChild(question);
+        var answerNum = Q_A.pair[Q_A.currentQuestion][1];
+        /**Make Answers */
+        for (let i = 0; i < Q_A.answerList[answerNum].length; i++) {
+            var answer = makeText("answer", Q_A.answerList[answerNum][i]);
+            answer.addEventListener("click", function () {
+                nextQuestion(i);
+            }, false);
+            content.appendChild(answer);
+        }
+    }
+
+    function makeQuestionContext() {
+        var content = makeDiv("content");
+        content.style = "margin-top: 2em;";
+        makeQ_A(content);
+        return content;
+    }
+
+    function prevButtonEvent() {
+        Q_A.currentQuestion--;
+        changeQuestion();
+        if (Q_A.currentQuestion === 0) {
+            var buttonToDelete = document.getElementsByClassName("button")[0];
+            buttonToDelete.parentNode.removeChild(buttonToDelete);
+            document.getElementsByClassName("button")[0].classList.remove("b_right");
+        }
+        colorChosenAnswer();
+    }
+
+    function makePrevButton() {
+        var button_left = makeDiv("button b_left");
+        var left_icon = document.createElement('img');
+        left_icon.className = "icon flip";
+        left_icon.src = arrow_icon_address;
+        button_left.appendChild(left_icon);
+        button_left.addEventListener("click", prevButtonEvent);
+        document.getElementsByClassName("question_wrapper")[1].insertBefore(
+            button_left, document.getElementsByClassName("button")[0]);
+    }
+
+    function nextButtonEvent() {
+        if (Q_A.currentQuestion === 0) {
+            makePrevButton();
+            document.getElementsByClassName("button")[1].classList.add("b_right");
+            Q_A.currentQuestion++;
+            changeQuestion();
+            colorChosenAnswer();
+        }
+        else if (Q_A.currentQuestion + 1 === Q_A.questionList.length) {
+            remove(document.getElementsByClassName("content_wrapper")[0]);
+            landingSafetyGradePage();
+        }
+        else {
+            Q_A.currentQuestion++;
+            changeQuestion();
+            colorChosenAnswer();
+        }
+    }
+
+    function nextQuestion(answerNumber) {
+        if (Q_A.currentQuestion === 0) {
+            makePrevButton();
+            document.getElementsByClassName("button")[1].classList.add("b_right");
+            userAnswer.set(Q_A.currentQuestion, answerNumber);
+            Q_A.currentQuestion++;
+            changeQuestion();
+        }
+        else if (Q_A.currentQuestion + 1 === Q_A.questionList.length) {
+            remove(document.getElementsByClassName("content_wrapper")[0]);
+            userAnswer.set(Q_A.currentQuestion, answerNumber);
+            landingSafetyGradePage();
+        }
+        else {
+            userAnswer.set(Q_A.currentQuestion, answerNumber);
+            Q_A.currentQuestion++;
+            changeQuestion();
+        }
+    }
+
+    function colorChosenAnswer() {
+        if (userAnswer.get(Q_A.currentQuestion) != null) {
+            document.getElementsByClassName("answer")[userAnswer.get(Q_A.currentQuestion)].classList.add("chosenAnswer");
+        }
+    }
+}
 
 /**DOM For Landing the Safety Grade Page */
 function landingSafetyGradePage() {
     const wrapper = makeDiv("wrapper");
     const text_wrapper = makeTextWrapper();
-    const content_wrapper = makeDiv("content_wrapper");
+    const content_wrapper = makeDiv("question_wrapper");
 
     calculateUserGrade();
     const grade_container = makeGradeContainer();
@@ -467,7 +645,8 @@ function countUp() {
 
     runAnimations();
 }
-landingSafetyGradePage();
+landingSafetyQuestionPage();
+
 makeGrade();
 makeMedal();
 countUp();

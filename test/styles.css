@@ -7,8 +7,120 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     color: #141c1c;
 }
+/* Question Page */
+.header {
+    z-index: 1;
+    display: flex;
+    height: 5em;
+    width: 100%;
+    background-color: #141c1c;
+    align-items: center;
+    justify-content: center;
+}
 
-.wrapper, .content_wrapper, .text_wrapper {
+.logo {
+    height: 5em;
+}
+
+.question {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 880px;
+    height: 80px;
+    margin: 10px;
+    border-radius: 40px;
+    background-color: #e2b95d;
+}
+
+.answer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 870px;
+    height: 70px;
+    margin: 5px;
+    border-width: 5px;
+    border-radius: 35px;
+    border-style: solid;
+    border-color: #e2b95d;
+}
+
+.answer:hover, .chosenAnswer {
+    background-color: #f3e3be;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: #e2b95d;
+}
+
+.button:hover {
+    background-color: #f3e3be;
+}
+
+.b_left {
+    border-radius: 25px 0px 0px 25px;
+}
+
+.b_right {
+    border-radius: 0px 25px 25px 0px;
+}
+
+.icon {
+    width: 1em;
+    height: 1.2em;
+    padding-left: 0;
+    padding-right: 1em;
+}
+
+.flip {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+.content_wrapper {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content_wrapper>div {
+    margin-top: 2em;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1000px;
+    flex-direction: column;
+}
+
+.progress_bar {
+    display: flex;
+    width: 800px;
+    height: 16px;
+    background-color: #f3e3be;
+    border-radius: 8px;
+}
+
+.progress_bar_begin {
+    width: 10%;
+    height: 16px;
+    background-color: #e2b95d;
+    border-radius: 10px;
+}
+
+/* Grade Page*/
+.wrapper, .content_wrapper, .text_wrapper, .question_wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,6 +130,7 @@ body {
     margin: 2em;
     flex-direction: column;
 }
+
 
 .box {
     display: flex;

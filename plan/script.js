@@ -1,5 +1,5 @@
 /**Make an object of Question and answers. */
-var QandAList = {
+var Q_A = {
     questionList: [
         "Choose Your Property Type",
         "Are you interested in remote video access?",
@@ -77,23 +77,23 @@ function makeVivintText() {
 
 function makePlanBenefitList(userPlan) {
     const ul = document.createElement("ul");
-    for (let i = 0; i < QandAList.suggestionBasic.length; i++) {
+    for (let i = 0; i < Q_A.suggestionBasic.length; i++) {
         const li = document.createElement('li');
-        li.innerHTML = QandAList.suggestionBasic[i];
+        li.innerHTML = Q_A.suggestionBasic[i];
         ul.appendChild(li);
     }
 
     if (userPlan > 0) {
-        for (let i = 0; i < QandAList.premium.length; i++) {
+        for (let i = 0; i < Q_A.premium.length; i++) {
             const li = document.createElement('li');
-            li.innerHTML = QandAList.premium[i];
+            li.innerHTML = Q_A.premium[i];
             ul.appendChild(li);
         }
     }
     if (userPlan > 1) {
-        for (let i = 0; i < QandAList.premiumPlus.length; i++) {
+        for (let i = 0; i < Q_A.premiumPlus.length; i++) {
             const li = document.createElement('li');
-            li.innerHTML = QandAList.premiumPlus[i];
+            li.innerHTML = Q_A.premiumPlus[i];
             ul.appendChild(li);
         }
     }
@@ -103,13 +103,13 @@ function makePlanBenefitList(userPlan) {
 function makeSuggestionMainText(userPlan) {
     const package = document.createElement("h1");
     package.className = "suggestion_package_name";
-    package.innerHTML = QandAList.suggestionLevel[userPlan] + "&nbsp;Package";
+    package.innerHTML = Q_A.suggestionLevel[userPlan] + "&nbsp;Package";
     return package;
 }
 
 function makeSuggestionPackageName(userPlan) {
     const explanation = document.createElement("p");
-    explanation.innerHTML = QandAList.suggestionExplanation[userPlan];
+    explanation.innerHTML = Q_A.suggestionExplanation[userPlan];
     return explanation;
 }
 
@@ -300,22 +300,22 @@ function suggestPlan() {
 */
 function changeQuestion() {
     setProgress();
-    document.getElementsByClassName("progress_bar_begin")[0].style.width = QandAList.progress + "%";
+    document.getElementsByClassName("progress_bar_begin")[0].style.width = Q_A.progress + "%";
     var content = document.getElementsByClassName("content")[0];
     remove(content);
     makeQ_A(content);
 }
 
 function colorChosenAnswer() {
-    if (userAnswer.get(QandAList.currentQuestion) != null) {
-        document.getElementsByClassName("answer")[userAnswer.get(QandAList.currentQuestion)].classList.add("chosenAnswer");
+    if (userAnswer.get(Q_A.currentQuestion) != null) {
+        document.getElementsByClassName("answer")[userAnswer.get(Q_A.currentQuestion)].classList.add("chosenAnswer");
     }
 }
 
 function prevButtonEvent() {
-    QandAList.currentQuestion--;
+    Q_A.currentQuestion--;
     changeQuestion();
-    if (QandAList.currentQuestion === 0) {
+    if (Q_A.currentQuestion === 0) {
         var buttonToDelete = document.getElementsByClassName("button")[0];
         buttonToDelete.parentNode.removeChild(buttonToDelete);
         document.getElementsByClassName("button")[0].classList.remove("right");
@@ -335,40 +335,40 @@ function makePrevButton() {
 }
 
 function nextButtonEvent() {
-    if (QandAList.currentQuestion === 0) {
+    if (Q_A.currentQuestion === 0) {
         makePrevButton();
         document.getElementsByClassName("button")[1].classList.add("right");
-        QandAList.currentQuestion++;
+        Q_A.currentQuestion++;
         changeQuestion();
         colorChosenAnswer();
     }
-    else if (QandAList.currentQuestion + 1 === QandAList.questionList.length) {
+    else if (Q_A.currentQuestion + 1 === Q_A.questionList.length) {
         remove(document.getElementsByClassName("content_wrapper")[0]);
         suggestPlan();
     }
     else {
-        QandAList.currentQuestion++;
+        Q_A.currentQuestion++;
         changeQuestion();
         colorChosenAnswer();
     }
 }
 
 function nextQuestion(answerNumber) {
-    if (QandAList.currentQuestion === 0) {
+    if (Q_A.currentQuestion === 0) {
         makePrevButton();
         document.getElementsByClassName("button")[1].classList.add("right");
-        userAnswer.set(QandAList.currentQuestion, answerNumber);
-        QandAList.currentQuestion++;
+        userAnswer.set(Q_A.currentQuestion, answerNumber);
+        Q_A.currentQuestion++;
         changeQuestion();
     }
-    else if (QandAList.currentQuestion + 1 === QandAList.questionList.length) {
+    else if (Q_A.currentQuestion + 1 === Q_A.questionList.length) {
         remove(document.getElementsByClassName("content_wrapper")[0]);
-        userAnswer.set(QandAList.currentQuestion, answerNumber);
+        userAnswer.set(Q_A.currentQuestion, answerNumber);
         suggestPlan();
     }
     else {
-        userAnswer.set(QandAList.currentQuestion, answerNumber);
-        QandAList.currentQuestion++;
+        userAnswer.set(Q_A.currentQuestion, answerNumber);
+        Q_A.currentQuestion++;
         changeQuestion();
     }
 
@@ -414,11 +414,11 @@ function makeHeader() {
 
 function makeQ_A(content) {
     /**Make Question */
-    var question = makeText("question", QandAList.questionList[QandAList.currentQuestion]);
+    var question = makeText("question", Q_A.questionList[Q_A.currentQuestion]);
     content.appendChild(question);
     /**Make Answers */
-    for (let i = 0; i < QandAList.answerList[QandAList.currentQuestion].length; i++) {
-        var answer = makeText("answer", QandAList.answerList[QandAList.currentQuestion][i]);
+    for (let i = 0; i < Q_A.answerList[Q_A.currentQuestion].length; i++) {
+        var answer = makeText("answer", Q_A.answerList[Q_A.currentQuestion][i]);
         answer.addEventListener("click", function () {
             nextQuestion(i);
         }, false);
@@ -435,7 +435,7 @@ function makeQuestionContext() {
 
 /**Progress Bar Function */
 function setProgress() {
-    QandAList.progress = Math.ceil(((QandAList.currentQuestion + 1) / QandAList.questionList.length) * 100);
+    Q_A.progress = Math.ceil(((Q_A.currentQuestion + 1) / Q_A.questionList.length) * 100);
 }
 
 
@@ -448,7 +448,7 @@ function makeProgressBar() {
     var progressBar = makeDiv("progress_bar");
     var progressBarProgress = makeDiv("progress_bar_begin");
     setProgress();
-    var progressStyle = QandAList.progress + "%";
+    var progressStyle = Q_A.progress + "%";
     progressBarProgress.style.width = progressStyle;
     progressBar.appendChild(progressBarProgress);
 
