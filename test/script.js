@@ -1,3 +1,4 @@
+
 var Q_A = {
     questionList: [
         "Do you have your lock in your house?",
@@ -26,6 +27,24 @@ var Q_A = {
         "Lock", "Outdoor Cameras", "Indoor Cameras", "Doorbell Camera",
         "Smart Lock System", "Garage Door Control", "Car Guard", "Safety Alarms",
     ],
+    suggestionBasic: [
+        "24/7 Monitoring",
+        "Intrusion detection",
+        "Touchscreen control panel",
+        "Mobile app"
+    ],
+    premium: [
+        "Video security",
+        "Theft deterrent"
+    ],
+    premiumPlus: [
+        "Voice control",
+        "Stored video clips",
+        "Smart home automation",
+        "Vehicle protection"
+    ],
+    suggestionLevel: ["Starter", "Premium", "Premium Plus"],
+    suggestionExplanation: ["Basic home security", "Complete home protection", "Security + Automation"],
     currentQuestion: 0,
     progress: 10,
 }
@@ -51,7 +70,7 @@ const arrow_icon_address = "https://www.freeiconspng.com/thumbs/white-arrow-png/
  * I need data from real Vivint Webpage. 
 */
 function calculateUserGrade() {
-    
+
     if (userAnswer.length != 0) {
         calculateGrade();
     }
@@ -91,6 +110,20 @@ function calculateUserGrade() {
     }
 }
 
+function setCustomizedPlan() {
+    /**if user didn't choose the option or they selected not sure for everything. */
+    if (userGrade < 50){
+        planNum = 2;
+    }
+    else if (userGrade < 80){
+        planNum = 1;
+    }
+    else {
+        planNum = 0;
+    }
+    originalPlanNum = planNum;
+    return planNum;
+}
 /**Basic Functions */
 
 function remove(parent) {
@@ -330,6 +363,11 @@ function landingSafetyGradePage() {
     wrapper.appendChild(content_wrapper);
 
     document.body.appendChild(wrapper);
+
+    makeGrade();
+    makeMedal();
+    countUp();
+    suggestPlan();
 
     function makeTextWrapper() {
         const text_wrapper = makeDiv("text_wrapper");
@@ -645,8 +683,262 @@ function countUp() {
 
     runAnimations();
 }
-landingSafetyQuestionPage();
 
-makeGrade();
-makeMedal();
-countUp();
+/**DOM For Suggesting Plan */
+function suggestPlan() {
+    const suggestion_wrapper = makeDiv("suggestion_wrapper");
+    const suggestion_box = makeDiv("suggestion_box");
+    const suggestion_image = makeSuggestionImage();
+    const suggestion_text = makeSuggestionText();
+    const background = makeDiv("background");
+    var background_img = makeDiv("background_img");
+    const insertPlace = makeDiv("insertPlace");
+
+    background_img = makeSuggestionButtons(background_img);
+
+    if (planNum === 2) {
+        suggestion_wrapper.style.marginTop = "20px";
+        suggestion_box.style.width = "950px";
+        suggestion_image.style.height = "596px";
+        suggestion_text.style.height = "500px";
+    }
+
+    suggestion_box.appendChild(suggestion_image);
+    suggestion_box.appendChild(suggestion_text);
+    suggestion_box.appendChild(insertPlace);
+
+    suggestion_wrapper.appendChild(suggestion_box);
+
+    document.body.appendChild(suggestion_wrapper);
+
+    background.appendChild(background_img);
+
+    document.body.appendChild(background);
+
+
+
+    function makeVivintText() {
+        const your_vivint_plan = document.createElement("h2");
+        your_vivint_plan.className = "suggestion_main_text";
+
+        if (originalPlanNum == planNum) {
+            your_vivint_plan.innerHTML = "Your Vivint Plan is:";
+        }
+        else if (originalPlanNum < planNum) {
+            your_vivint_plan.innerHTML = "Upgraded Vivint Plan is:";
+        }
+        else {
+            your_vivint_plan.innerHTML = "Downgraded Vivint Plan is:";
+        }
+
+        return your_vivint_plan;
+    }
+
+    function makePlanBenefitList(userPlan) {
+        const ul = document.createElement("ul");
+        for (let i = 0; i < Q_A.suggestionBasic.length; i++) {
+            const li = document.createElement('li');
+            li.innerHTML = Q_A.suggestionBasic[i];
+            ul.appendChild(li);
+        }
+
+        if (userPlan > 0) {
+            for (let i = 0; i < Q_A.premium.length; i++) {
+                const li = document.createElement('li');
+                li.innerHTML = Q_A.premium[i];
+                ul.appendChild(li);
+            }
+        }
+        if (userPlan > 1) {
+            for (let i = 0; i < Q_A.premiumPlus.length; i++) {
+                const li = document.createElement('li');
+                li.innerHTML = Q_A.premiumPlus[i];
+                ul.appendChild(li);
+            }
+        }
+        return ul;
+    }
+
+    function makeSuggestionMainText(userPlan) {
+        const package = document.createElement("h1");
+        package.className = "suggestion_package_name";
+        package.innerHTML = Q_A.suggestionLevel[userPlan] + "&nbsp;Package";
+        return package;
+    }
+
+    function makeSuggestionPackageName(userPlan) {
+        const explanation = document.createElement("p");
+        explanation.innerHTML = Q_A.suggestionExplanation[userPlan];
+        return explanation;
+    }
+
+    function createSpan(message) {
+        const span = document.createElement('span');
+        span.innerHTML = message;
+        return span;
+    }
+
+    function createCallButton() {
+        const button = document.createElement('a');
+        const img = document.createElement('img');
+        const span = createSpan("877.537.3785");
+        button.href = "tel:18775373785";
+        button.className = "call_button";
+        if (planNum === 2) {
+            button.style.marginTop = "1em";
+        }
+
+        img.src = "https://www.iconsdb.com/icons/preview/white/phone-xxl.png";
+        img.className = "icon";
+        button.appendChild(img);
+        button.appendChild(span);
+        return button;
+    }
+
+
+    function makeSuggestionText() {
+        const suggestion_text = makeDiv("suggestion_text");
+
+        const your_vivint_plan = makeVivintText();
+        var userPlan = null;
+        if (planNum != null) {
+            userPlan = planNum;
+        }
+        else {
+            userPlan = setCustomizedPlan();
+        }
+
+        const package = makeSuggestionMainText(userPlan);
+
+        const explanation = makeSuggestionPackageName(userPlan);
+
+        const ul = makePlanBenefitList(userPlan);
+
+        const call_button = createCallButton();
+
+        suggestion_text.appendChild(your_vivint_plan);
+        suggestion_text.appendChild(package);
+        suggestion_text.appendChild(explanation);
+        suggestion_text.appendChild(ul);
+        suggestion_text.appendChild(call_button);
+
+        return suggestion_text;
+    }
+
+    function makeSuggestionImage() {
+        const suggestion_image = document.createElement('img');
+        suggestion_image.src = "https://d1sfco99flnudn.cloudfront.net/www.vivintsource.com/images/pages/packages/dog-on-chair-small.jpg";
+        suggestion_image.className = "suggestion_image";
+        return suggestion_image;
+    }
+
+    /**Functions for Changing the content of the suggestion package */
+
+    function changeStyle(state) {
+        var suggestion_wrapper = document.querySelectorAll(".suggestion_wrapper")[0];
+        var suggestion_box = document.querySelectorAll(".suggestion_box")[0];
+        var suggestion_image = document.querySelectorAll(".suggestion_image")[0];
+        var suggestion_text = document.querySelectorAll(".suggestion_text")[0];
+
+        if (state === true) {
+            suggestion_wrapper.style.marginTop = "20px";
+            suggestion_box.style.width = "850px";
+            suggestion_image.style.height = "546px";
+            suggestion_text.style.height = "450px";
+        }
+        else {
+            suggestion_wrapper.style.marginTop = "0";
+            suggestion_box.style.width = "800px";
+            suggestion_image.style.height = "496px";
+            suggestion_text.style.height = "400px";
+        }
+    }
+
+    function plusSuggestion() {
+        if (planNum === 2) {
+            planNum = 0;
+        }
+        else {
+            planNum++;
+        }
+        changeSuggestion();
+    }
+
+    function minusSuggestion() {
+        if (planNum === 0) {
+            planNum = 2;
+        }
+        else {
+            planNum--;
+        }
+        changeSuggestion();
+    }
+
+    function changeSuggestion() {
+        var newSuggestion = makeSuggestionText();
+        remove(document.getElementsByClassName("suggestion_text")[0]);
+        var element = document.getElementsByClassName("suggestion_text")[0];
+        element.parentNode.removeChild(element);
+        var insertPlace = document.getElementsByClassName("insertPlace")[0];
+        var parentDiv = document.body.querySelectorAll(".suggestion_box")[0];
+        parentDiv.insertBefore(newSuggestion, insertPlace);
+
+        if (planNum == 2) {
+            changeStyle(true);
+        }
+        else {
+            changeStyle(false);
+        }
+    }
+
+    function makeSuggestionButtons(wrapper) {
+        const left_button = makeDiv("button");
+        const right_button = makeDiv("button");
+        left_button.style.cursor = "pointer";
+        right_button.style.cursor = "pointer";
+
+        var left_img = document.createElement('img');
+        left_img.className = "icon flip";
+        left_img.src = "https://www.freeiconspng.com/thumbs/white-arrow-png/white-arrow-transparent-png-22.png";
+        left_img.style.padding = "0em";
+
+        var right_img = document.createElement('img');
+        right_img.className = "icon";
+        right_img.src = "https://www.freeiconspng.com/thumbs/white-arrow-png/white-arrow-transparent-png-22.png";
+        right_img.style.padding = "0em";
+
+        left_button.setAttribute("id", "suggestion_left_button");
+        left_button.addEventListener("click", minusSuggestion);
+
+        right_button.setAttribute("id", "suggestion_right_button");
+        right_button.addEventListener("click", plusSuggestion);
+
+        right_button.appendChild(right_img);
+        left_button.appendChild(left_img);
+
+        wrapper.appendChild(left_button);
+        wrapper.appendChild(right_button);
+
+        return wrapper;
+    }
+}
+
+var script = document.createElement('script');
+script.src = 'https://code.jquery.com/jquery-3.4.1.min.js';
+script.type = 'text/javascript';
+document.getElementsByTagName('head')[0].appendChild(script);
+
+jQuery(document).ready(function ($) {
+
+    $(".find_plan").click(function (event) {
+
+        event.preventDefault();
+
+        $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 500);
+
+    });
+
+});
+
+
+landingSafetyQuestionPage();

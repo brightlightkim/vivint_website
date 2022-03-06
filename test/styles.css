@@ -7,6 +7,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     color: #141c1c;
 }
+
 /* Question Page */
 .header {
     z-index: 1;
@@ -203,15 +204,6 @@ body {
     width: 18em;
 }
 
-h1 {
-    font-size: 3em;
-    padding: 2em;
-}
-
-h3 {
-    font-size: 1.5em;
-}
-
 ul {
     padding: 0.5em 0 0 0;
     list-style: none;
@@ -225,14 +217,158 @@ li {
     margin-bottom: 0.2em;
     font-size: 1.2em;
 }
-table{
+
+table {
     margin-top: 0.7em;
 }
-td{
+
+td {
     padding: 0.1em 0;
     font-size: 1.2em;
 }
-tbody > tr > :nth-child(2){ 
+
+tbody>tr> :nth-child(2) {
     text-align: center;
     padding-right: 2em;
+}
+
+/* Suggestion Page */
+.suggestion_wrapper {
+    position: absolute;
+    top: 1000px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.suggestion_box {
+    display: flex;
+    width: 800px;
+    justify-content: center;
+    align-items: center;
+}
+
+.suggestion_image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 496px;
+    box-shadow: -11px 0px 10px 8px rgba(0, 0, 0, 0.19);
+    border-radius: 50px 0px 0px 50px;
+}
+
+.suggestion_text {
+    display: flex;
+    width: 500px;
+    height: 400px;
+    padding: 3em 0 3em 3em;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    background-color: #f3e3be;
+    box-shadow: 11px 0px 10px 8px rgba(0, 0, 0, 0.19);
+    border-radius: 0px 50px 50px 0px;
+}
+
+.suggestion_main_text {
+    margin-bottom: 0.5em;
+    color: #b88205;
+}
+
+.suggestion_package_name {
+    margin-bottom: 0.5em;
+}
+
+.insertPlace {
+    width: 0;
+    height: 0;
+    flex: 0;
+}
+
+#suggestion_left_button {
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 5%;
+    top: 50%;
+    width: 50px;
+}
+
+#suggestion_right_button {
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 95%;
+    top: 50%;
+    width: 50px;
+}
+
+#suggestion_right_button, #suggestion_left_button {
+    transform: translate(-50%, -50%);
+}
+
+#suggestion_right_button:hover, #suggestion_left_button:hover {
+    background-color: #eed089;
+}
+
+.background {
+    position: absolute;
+    top: 1000px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.background_img {
+    display: flex;
+    width: 66em;
+    height: 400px;
+    border-radius: 50px;
+    box-shadow: -1px 0px 10px 8px rgba(0, 0, 0, 0.19);
+    background-color: #f3e3be;
+}
+
+.call_button {
+
+    display: flex;
+    justify-content: center;
+    width: 12.2em;
+    padding: 20px 0px;
+    border-radius: 40px;
+    background-color: #e2b95d;
+    margin-top: 2em;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+.call_button img {
+    size: 2em;
+}
+
+.call_button:hover {
+    background-color: #eed089;
+}
+
+.call-icon {
+    flex: 1;
+}
+
+.button-text {
+    flex: 4;
+}
+
+li {
+    margin-bottom: 0.2em;
 }
