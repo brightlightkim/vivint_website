@@ -131,10 +131,10 @@ function calculateUserGrade() {
 
 function setCustomizedPlan() {
     /**if user didn't choose the option or they selected not sure for everything. */
-    if (userGrade < 50){
+    if (userGrade < 50) {
         planNum = 2;
     }
-    else if (userGrade < 80){
+    else if (userGrade < 80) {
         planNum = 1;
     }
     else {
@@ -485,7 +485,12 @@ function landingSafetyGradePage() {
 
         if (userPercentile > 50) {
             top.innerHTML = "TOP";
-            percent.innerHTML = 100 - userPercentile;
+            if (userPercentile === 100) {
+                percent.innerHTML = 1;
+            }
+            else {
+                percent.innerHTML = 100 - userPercentile;
+            }
         }
         else {
             top.innerHTML = "BOTTOM";
@@ -566,7 +571,7 @@ function makeGrade() {
     drawCircle();
 
     function setGradeColor() {
-        if (userGrade < 30){
+        if (userGrade < 30) {
             strokeColor = color.red;
         }
         else if (userGrade < 50) {
@@ -597,17 +602,14 @@ function makeGrade() {
         ctx.stroke();
 
         CurPer++;
-        if (CurPer < endPercent) {
+        if (CurPer <= endPercent) {
             requestAnimationFrame(function () {
                 drawCircle(CurPer / 100);
             });
         }
-        else {
-            /**Insert the Character*/
-        }
     }
 
-    
+
 }
 
 function makeMedal() {
@@ -626,7 +628,7 @@ function makeMedal() {
 
     ctx.lineWidth = "30";
     ctx.strokeStyle = "blue";
-    
+
     setColorByGrade();
 
     drawFirstRectangle();
@@ -636,13 +638,13 @@ function makeMedal() {
     drawBackCircle();
     drawCircle();
 
-    function setColorByGrade(){
-        if (userGrade < 50){
+    function setColorByGrade() {
+        if (userGrade < 50) {
             light_color = color.light_bronze;
             dark_color = color.dark_bronze;
             basic_color = color.bronze;
         }
-        else if (userGrade < 90){
+        else if (userGrade < 90) {
             light_color = color.light_silver;
             dark_color = color.dark_silver;
             basic_color = color.silver;
@@ -692,13 +694,13 @@ function makeMedal() {
         ctx.stroke();
 
         CurPer++;
-        if (CurPer < endPercent) {
+        if (CurPer <= endPercent) {
             requestAnimationFrame(function () {
                 drawCircle(CurPer / 100);
             });
         }
     }
-    
+
 }
 
 function countUp() {
@@ -774,12 +776,11 @@ function suggestPlan() {
 
     suggestion_wrapper.appendChild(suggestion_box);
 
-    document.body.appendChild(suggestion_wrapper);
-
     background.appendChild(background_img);
 
     const wrapper = document.body.getElementsByClassName("wrapper")[0];
 
+    wrapper.appendChild(suggestion_wrapper);
     wrapper.appendChild(background);
     wrapper.appendChild(vivintPlan);
     wrapper.appendChild(padding);
@@ -789,10 +790,10 @@ function suggestPlan() {
         button.setAttribute('id', "vivintButton");
         button.href = "#padding";
         button.innerHTML = "To Protect Your Home";
-        button.addEventListener("mouseenter", function(event){
+        button.addEventListener("mouseenter", function (event) {
             button.innerHTML = "";
         }, false);
-        button.addEventListener("mouseleave", function(event){
+        button.addEventListener("mouseleave", function (event) {
             button.innerHTML = "To Protect Your Home";
         }, false);
         return button;
@@ -1004,5 +1005,35 @@ function suggestPlan() {
     }
 }
 
+function makeSlideShow() {
+    const slides = document.querySelector('.slides');
+    const slideImg = document.querySelectorAll('.slide');
+    let currentIdx = 0;
+    const slideCount = slideImg.length;
+    const prev = document.querySelector('.prev');
+    const next = document.querySelector('.next');
+    const slideWidth = 400;
+    const slideMargin = 25;
+    
+    slides.style.width = (slideWidth + slideMargin) * slideCount + 'px';
 
+    function moveSlide(num) {
+        slides.style.left = -num * 465 + 'px';
+        currentIdx = num;
+    }
+    prev.addEventListener('click', function () {
+        if (currentIdx !== 0) {
+            moveSlide(currentIdx - 1);
+        }
+    });
+
+    next.addEventListener('click', function () {
+        if (currentIdx !== slideCount - 1) {
+            moveSlide(currentIdx + 1);
+        }
+    });
+
+}
+
+makeSlideShow();
 landingSafetyQuestionPage();

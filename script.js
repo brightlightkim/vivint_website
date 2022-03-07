@@ -450,6 +450,8 @@ function createVideo(videoNum, videoLink, videoMessage) {
     const video_mask = createDiv("video-mask");
     const video = document.createElement('video');
     
+    video_mask.setAttribute("id", "myVideo");
+
     const message = createDiv("video-text");
     message.setAttribute('id', "video"+videoNum);
     const span = breakMessage(videoMessage);
@@ -465,6 +467,7 @@ function createVideo(videoNum, videoLink, videoMessage) {
     video.innerHTML = "Your Browser does not support the video tag";
 
     video_mask.appendChild(video);
+    video_mask.appendChild(message);
 
     wrapper.appendChild(video_mask);
 
@@ -472,7 +475,6 @@ function createVideo(videoNum, videoLink, videoMessage) {
     /**wrapper.appendChild(message);*/
 
     document.body.appendChild(wrapper);
-    document.body.appendChild(message);
 }
 
 /**buffer for showing all */
