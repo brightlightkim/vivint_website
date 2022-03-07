@@ -224,6 +224,7 @@ body>div {
 .banner {
     display: flex;
     position: fixed;
+    z-index: 1;
     text-decoration: none;
     bottom: 0;
     width: 100%;

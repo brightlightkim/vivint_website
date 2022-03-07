@@ -10,7 +10,8 @@ body {
 
 /* Question Page */
 .header {
-    z-index: 1;
+    position: fixed;
+    z-index: 2;
     display: flex;
     height: 5em;
     width: 100%;
@@ -146,11 +147,14 @@ body {
 }
 
 .text_wrapper {
-    width: 60em;
-    height: 10em;
+    width: 62em;
+    height: 12em;
     border-radius: 20px;
-    background-color: rgb(233, 233, 233);
-    border: 1em;
+    background-image: url(https://cammy-marketing.s3.amazonaws.com/2015/02/1424795684/burglar-front-house-dark.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
     border-style: solid;
     border-color: #141c1c;
 }
@@ -235,7 +239,7 @@ tbody>tr> :nth-child(2) {
 /* Suggestion Page */
 .suggestion_wrapper {
     position: absolute;
-    top: 1000px;
+    top: 1100px;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
@@ -320,7 +324,7 @@ tbody>tr> :nth-child(2) {
 
 .background {
     position: absolute;
-    top: 1000px;
+    top: 1100px;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 0;
@@ -373,8 +377,37 @@ li {
     margin-bottom: 0.2em;
 }
 
+#littleUpperPadding{
+    height: 5em;
+}
+
 #padding {
     height: 496px;
     width: 100%;
-    margin: 6em;
+    margin: 6.5em;
+}
+
+#vivintButton {
+    scroll-behavior: smooth;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 60px;
+    border-radius: 30px;
+    margin-top: 0.5em;
+    background-color: #141c1c;
+    color: white;
+    z-index: 1;
+}
+
+#vivintButton:hover {
+    background-image: url(https://www.freeiconspng.com/thumbs/white-arrow-png/white-down-arrow-png-2.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+a {
+    text-decoration: none;
 }

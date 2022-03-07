@@ -54,13 +54,18 @@ var color = {
     light_gold: "#fbe880",
     dark_gold: "#f7cc47",
     silver: "#dadada",
-    light_silver: "#e6e6e6",
+    light_silver: "#cfcfcf",
     dark_silver: "#c2c2c2",
     bronze: "#fcac71",
     light_bronze: "#fed4be",
     dark_bronze: "#fea15b",
     blue: "#4571e6",
     pink: "#ef8f8c",
+    red: "#ff3535",
+    orange: "#ff7835",
+    yellow: "#fee13e",
+    green: "#00e025",
+    blue: "#2d68ff",
 }
 
 var planNum = null;
@@ -185,6 +190,7 @@ function landingSafetyQuestionPage() {
 
     function makeHeader() {
         var header = document.createElement('div');
+        const littlePadding = makeDivWithID('littleUpperPadding');
         header.className = "header";
 
         var vividLink = document.createElement('a');
@@ -199,6 +205,7 @@ function landingSafetyQuestionPage() {
         header.appendChild(vividLink);
 
         document.body.appendChild(header);
+        document.body.appendChild(littlePadding);
     }
 
     function makeQuestionPage() {
@@ -548,9 +555,33 @@ function makeGrade() {
     var CurPer = 0;
     var circ = Math.PI * 2;
     var quart = Math.PI / 2;
+    var strokeColor = "red";
 
     ctx.lineWidth = "30";
-    ctx.strokeStyle = "blue";
+    ctx.strokeStyle = strokeColor;
+
+    /**Functions of setting which color to do and what grade to give */
+    setGradeColor();
+    drawBackCircle();
+    drawCircle();
+
+    function setGradeColor() {
+        if (userGrade < 30){
+            strokeColor = color.red;
+        }
+        else if (userGrade < 50) {
+            strokeColor = color.orange;
+        }
+        else if (userGrade < 70) {
+            strokeColor = color.yellow;
+        }
+        else if (userGrade < 90) {
+            strokeColor = color.green;
+        }
+        else {
+            strokeColor = color.blue;
+        }
+    }
 
     function drawBackCircle() {
         ctx.strokeStyle = "rgb(210, 210, 210)";
@@ -560,7 +591,7 @@ function makeGrade() {
     }
 
     function drawCircle(currentPerc) {
-        ctx.strokeStyle = "blue";
+        ctx.strokeStyle = strokeColor;
         ctx.beginPath();
         ctx.arc('250', '250', radius, quart, (circ * currentPerc) + quart, false);
         ctx.stroke();
@@ -576,9 +607,7 @@ function makeGrade() {
         }
     }
 
-    /**Functions of setting which color to do and what grade to give */
-    drawBackCircle();
-    drawCircle();
+    
 }
 
 function makeMedal() {
@@ -591,17 +620,42 @@ function makeMedal() {
     var circ = Math.PI * 2;
     var quart = Math.PI / 2;
 
-    const gold = "#f8d550";
-    const light_gold = "#fbe880";
-    const dark_gold = "#f7cc47";
-    const blue = "#4571e6";
-    const pink = "#ef8f8c";
+    var light_color = null;
+    var dark_color = null;
+    var basic_color = null;
 
     ctx.lineWidth = "30";
     ctx.strokeStyle = "blue";
+    
+    setColorByGrade();
+
+    drawFirstRectangle();
+    drawSecondRectangle();
+    drawThirdRectangle();
+    drawConnectingRectangle();
+    drawBackCircle();
+    drawCircle();
+
+    function setColorByGrade(){
+        if (userGrade < 50){
+            light_color = color.light_bronze;
+            dark_color = color.dark_bronze;
+            basic_color = color.bronze;
+        }
+        else if (userGrade < 90){
+            light_color = color.light_silver;
+            dark_color = color.dark_silver;
+            basic_color = color.silver;
+        }
+        else {
+            light_color = color.light_gold;
+            dark_color = color.dark_gold;
+            basic_color = color.gold;
+        }
+    }
 
     function drawFirstRectangle() {
-        ctx.fillStyle = blue;
+        ctx.fillStyle = color.blue;
         ctx.fillRect(160, 50, 60, 80);
     }
 
@@ -611,28 +665,28 @@ function makeMedal() {
     }
 
     function drawThirdRectangle() {
-        ctx.fillStyle = blue;
+        ctx.fillStyle = color.blue;
         ctx.fillRect(280, 50, 60, 80);
     }
 
     function drawConnectingRectangle() {
-        ctx.fillStyle = pink;
+        ctx.fillStyle = color.pink;
         ctx.fillRect(160, 130, 180, 10);
     }
 
     function drawBackCircle() {
-        ctx.strokeStyle = dark_gold;
+        ctx.strokeStyle = dark_color;
         ctx.beginPath();
         ctx.arc('250', '300', radius, 0, 10, false);
         ctx.stroke();
-        ctx.fillStyle = light_gold;
+        ctx.fillStyle = light_color;
         ctx.fill();
         ctx.arc('250', '300', radius, 0, 10, false);
         ctx.stroke();
     }
 
     function drawCircle(currentPerc) {
-        ctx.strokeStyle = gold;
+        ctx.strokeStyle = basic_color;
         ctx.beginPath();
         ctx.arc('250', '300', radius, quart, (circ * currentPerc) + quart, false);
         ctx.stroke();
@@ -644,12 +698,7 @@ function makeMedal() {
             });
         }
     }
-    drawFirstRectangle();
-    drawSecondRectangle();
-    drawThirdRectangle();
-    drawConnectingRectangle();
-    drawBackCircle();
-    drawCircle();
+    
 }
 
 function countUp() {
@@ -707,6 +756,7 @@ function suggestPlan() {
     const background = makeDiv("background");
     var background_img = makeDiv("background_img");
     const insertPlace = makeDiv("insertPlace");
+    const vivintPlan = makeVivintPlanButton();
     const padding = makeDivWithID("padding");
 
     background_img = makeSuggestionButtons(background_img);
@@ -728,9 +778,25 @@ function suggestPlan() {
 
     background.appendChild(background_img);
 
-    document.body.appendChild(background);
-    document.body.appendChild(padding);
+    const wrapper = document.body.getElementsByClassName("wrapper")[0];
 
+    wrapper.appendChild(background);
+    wrapper.appendChild(vivintPlan);
+    wrapper.appendChild(padding);
+
+    function makeVivintPlanButton() {
+        const button = document.createElement('a');
+        button.setAttribute('id', "vivintButton");
+        button.href = "#padding";
+        button.innerHTML = "To Protect Your Home";
+        button.addEventListener("mouseenter", function(event){
+            button.innerHTML = "";
+        }, false);
+        button.addEventListener("mouseleave", function(event){
+            button.innerHTML = "To Protect Your Home";
+        }, false);
+        return button;
+    }
 
     function makeVivintText() {
         const your_vivint_plan = document.createElement("h2");
@@ -937,23 +1003,6 @@ function suggestPlan() {
         return wrapper;
     }
 }
-
-var script = document.createElement('script');
-script.src = 'https://code.jquery.com/jquery-3.4.1.min.js';
-script.type = 'text/javascript';
-document.getElementsByTagName('head')[0].appendChild(script);
-
-jQuery(document).ready(function ($) {
-
-    $(".find_plan").click(function (event) {
-
-        event.preventDefault();
-
-        $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 500);
-
-    });
-
-});
 
 
 landingSafetyQuestionPage();
