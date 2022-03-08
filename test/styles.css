@@ -126,7 +126,7 @@ body {
 }
 
 /* Grade Page*/
-.wrapper, .content_wrapper, .text_wrapper, .question_wrapper {
+.wrapper, .content_wrapper, .text_wrapper, .question_wrapper, .introduce_wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -386,9 +386,9 @@ li {
 }
 
 #padding {
-    height: 496px;
+    height: 800px;
     width: 100%;
-    margin: 6.5em;
+    margin-bottom: 3em;
 }
 
 #vivintButton {
@@ -416,17 +416,63 @@ a {
     text-decoration: none;
 }
 
+.small-text {
+    font-size: 12px;
+    margin-bottom: 10px;
+    letter-spacing: 0.2em;
+    font-weight: bold;
+}
+
+.big-text {
+    font-size: 36px;
+    line-height: 42px;
+    font-weight: bold;
+}
+
+.slide_click_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    color: white;
+    background-color: #141c1c;
+    cursor: pointer;
+}
+
+.slide_click_button:hover {
+    background-color: #bfc7c7;
+}
+
 /*Slide Show*/
-li {
-    list-style-type: none;
+.slide_introduce, .slide_button {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
+.slide_introduce {
+    padding: 5% 0px 5% 15%;
+    align-items: left;
+    flex-direction: column;
+}
+
+.slide_button {
+    margin-right: 5%;
+    justify-content: right;
+}
+
+.slide_button>div {
+    margin-left: 10px;
 }
 
 .slideShow {
     width: 100%;
-    height: 516px;
+    height: 456px;
     position: relative;
-    margin: 50px auto;
     overflow: hidden;
+    margin-bottom: 5em;
 }
 
 .slides {
@@ -435,9 +481,7 @@ li {
     top: 0;
     width: 2500px;
     margin-left: 5%;
-    /* 슬라이드할 사진과 마진 총 넓이 */
     transition: left 0.5s ease-out;
-    /*ease-out: 처음에는 느렸다가 점점 빨라짐*/
 }
 
 .slides .slide {
@@ -454,11 +498,11 @@ li {
     height: 390px;
     border-radius: 20px;
     background-color: #edf2f2;
-    padding: 60px 20px;
+    padding: 30px 20px;
     cursor: pointer;
 }
 
-.slide:hover{
+.slide:hover {
     background-color: #e3e8e8;
 }
 
@@ -481,7 +525,7 @@ li {
 }
 
 .single_link {
-    color:#5f7775;
+    color: #5f7775;
     font-size: 21px;
     font-weight: bold;
 }
@@ -490,34 +534,3 @@ li {
     color: #798e8c;
 }
 
-.controller span {
-    position: absolute;
-    background-color: transparent;
-    color: black;
-    text-align: center;
-    border-radius: 50%;
-    padding: 10px 20px;
-    top: 50%;
-    font-size: 1.3em;
-    cursor: pointer;
-}
-
-.controller span:hover {
-    background-color: rgba(128, 128, 128, 0.11);
-}
-
-.prev {
-    left: 10px;
-}
-
-.prev:hover {
-    transform: translateX(-10px);
-}
-
-.next {
-    right: 10px;
-}
-
-.next:hover {
-    transform: translateX(10px);
-}

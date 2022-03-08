@@ -537,3 +537,152 @@ video {
     margin-bottom: 6em;
 }
 
+
+#vivintButton {
+    scroll-behavior: smooth;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 60px;
+    border-radius: 30px;
+    margin-top: 0.5em;
+    background-color: #141c1c;
+    color: white;
+    z-index: 1;
+}
+
+#vivintButton:hover {
+    background-image: url(https://www.freeiconspng.com/thumbs/white-arrow-png/white-down-arrow-png-2.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+a {
+    text-decoration: none;
+}
+
+.small-text-main {
+    font-size: 12px;
+    margin-bottom: 10px;
+    letter-spacing: 0.2em;
+    font-weight: bold;
+}
+
+.big-text-main {
+    font-size: 36px;
+    line-height: 42px;
+    font-weight: bold;
+}
+
+.introduce_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide_click_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    color: white;
+    background-color: #141c1c;
+    cursor: pointer;
+}
+
+.slide_click_button:hover {
+    background-color: #bfc7c7;
+}
+
+/*Slide Show*/
+.slide_introduce, .slide_button {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
+.slide_introduce {
+    padding: 1% 0px 1% 15%;
+    align-items: left;
+    flex-direction: column;
+}
+
+.slide_button {
+    margin-right: 5%;
+    justify-content: right;
+}
+
+.slide_button>div {
+    margin-left: 10px;
+}
+
+.slideShow {
+    width: 100%;
+    height: 456px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 5em;
+}
+
+.slides {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2500px;
+    margin-left: 5%;
+    transition: left 0.5s ease-out;
+}
+
+.slides .slide {
+    float: left;
+    margin-right: 25px;
+}
+
+.slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 390px;
+    border-radius: 20px;
+    background-color: #edf2f2;
+    padding: 30px 20px;
+    cursor: pointer;
+}
+
+.slide:hover {
+    background-color: #e3e8e8;
+}
+
+.slide img {
+    height: 280px;
+    margin-bottom: 40px;
+}
+
+.slide_main_text {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 30px;
+    margin: 0 auto 20px;
+    color: #141c1c;
+}
+
+.single_link {
+    color: #5f7775;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.single_link:hover {
+    color: #798e8c;
+}

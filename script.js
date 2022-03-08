@@ -1,3 +1,18 @@
+var slideItems = [/**Order: main_text, link_text, link, imgLink */
+    ["Protect your perimeter", "Outdoor Camera Pro", "https://www.vivint.com/products/outdoor-camera", "https://www.vivint.com/sites/default/files/styles/square_hq_280x280/public/image/2021-05/Product%3DOutdoor%2C%20Devide%3DDesktop.png.webp?itok=9J5v_tNz"],
+    ["Stop package theft", "Doorbell Camera Pro", "https://www.vivint.com/products/doorbell-camera", "https://www.vivint.com/sites/default/files/styles/square_hq_280x280/public/image/2021-05/Product%3DDoorbell%2C%20Devide%3DDesktop.png.webp?itok=eH375NXZ"],
+    ["Lock up automatically", "Smart Locks", "https://www.vivint.com/products/smart-locks", "https://www.vivint.com/sites/default/files/styles/square_hq_280x280/public/image/2021-10/Tab-SmartLock.png.webp?itok=zI49yCVP"],
+    ["Convenient home control", "Smart home control", "https://www.vivint.com/products/smart-control", "https://www.vivint.com/sites/default/files/styles/square_hq_280x280/public/image/2021-05/Product%3DSmart%20Control%2C%20Devide%3DDesktop.png.webp?itok=3unSJCR4"],
+    ["30 days of 24/7 video", "Smart Drive", "https://www.vivint.com/products/video-recording", "https://www.vivint.com/sites/default/files/styles/square_hq_280x280/public/image/2021-05/Product%3DSmart%20Drive%2C%20Devide%3DDesktop.png.webp?itok=Qd5uNRzT"],
+    ["help when you need it", "24/7 monitoring", "https://www.vivint.com/products/monitoring", "https://www.vivint.com/sites/default/files/styles/square_hq_280x280/public/image/2021-05/Product%3DMonitor%2C%20Devide%3DDesktop.png.webp?itok=tG3mjeoF"],
+    ["Check in on your home", "Indoor Camera", "https://www.vivint.com/products/ping", "https://www.vivint.com/sites/default/files/styles/square_hq_280x280/public/image/2021-05/Product%3DIndoor%20Cam%2C%20Devide%3DDesktop.png.webp?itok=mHnsaC3T"],
+    ["Monitor doors and windows", "Security sensors", "https://www.vivint.com/products/security-sensors", "https://www.vivint.com/sites/default/files/styles/square_hq_280x280/public/image/2021-05/Product%3DSensors%2C%20Devide%3DDesktop.png.webp?itok=PcfyW8Qc"],
+    ["Control the garage from anywhere", "Garage door control", "https://www.vivint.com/products/garage-door-control", "https://www.vivint.com/sites/default/files/styles/square_hq_280x280/public/image/2021-05/Product%3DGarage%20Control%2C%20Devide%3DDesktop.png.webp?itok=dN_z_It_"],
+    ["Protect against car theft", "Car Guard", "https://www.vivint.com/products/car-guard", "https://www.vivint.com/sites/default/files/styles/square_hq_280x280/public/image/2021-05/Product%3DCar%20Guard%2C%20Devide%3DDesktop.png.webp?itok=3IBt-ffG"],
+    ["Smart temperature control", "Thermostat", "https://www.vivint.com/products/smart-thermostat", "https://www.vivint.com/sites/default/files/styles/square_hq_280x280/public/image/2021-05/Product%3DThermostat%2C%20Devide%3DDesktop.png.webp?itok=GKNVJx2w"],
+    ["Protect against disasters", "Safety alarms", "https://www.vivint.com/products/safety-alarms", "https://www.vivint.com/sites/default/files/styles/square_hq_280x280/public/image/2021-05/Product%3DSmoke%20Detector%2C%20Devide%3DDesktop.png.webp?itok=uI6NBHr_"],
+]
+
 /**Setting Head of HTML*/
 function setHeadHTML() {
     const responsiveSetting = document.createElement('meta');
@@ -322,7 +337,7 @@ function createTimeBanner() {
 
     banner.appendChild(text_box);
     banner.appendChild(timer);
-    
+
     document.body.appendChild(banner);
 }
 
@@ -355,20 +370,20 @@ function createFindMyVivintPlanLink() {
 }
 
 /**Functions for creating the link page for "Check My Home Safety" */
-function createCheckHomeSafetyTest(){
+function createCheckHomeSafetyTest() {
     const wrapper = createDiv("wrapper");
     const check_home_safety_wrapper = createDiv("check_home_safety_wrapper");
     const plan_content = createDiv("safety_content");
     const image_mask = createDiv("image-mask");
     const img = document.createElement('img');
     img.src = "https://cammy-marketing.s3.amazonaws.com/2015/02/1424795684/burglar-front-house-dark.jpg";
-    
+
     const small_text_1 = createDivWithText("small-text-s", "FIND YOUR HOME SAFETY GRADE");
     small_text_1.style.marginTop = "20px";
     const small_text_2 = createDivWithText("small-text-s big-padding-top", "CHECK YOUR HOME SAFETYNESS FOR FREE");
 
     const big_text = createDivWithText("big-text-s", "CHECK MY HOME SAFETY");
-9
+    9
     const button = createImageLink("./test/safetytest.html", "https://www.iconsdb.com/icons/preview/white/phone-xxl.png", "");
     button.className = "button";
     button.innerHTML = "SAFETY TEST";
@@ -416,7 +431,7 @@ function breakMessage(message) {
                     span.innerHTML += message.substring(0, divideLocation).trim();
                     span.appendChild(breakLine);
                     message = message.substring(divideLocation);
-                    divideLocation = 35; /**resetting the location */                    
+                    divideLocation = 35; /**resetting the location */
                 }
                 else {
                     checkRight = true;
@@ -432,7 +447,7 @@ function breakMessage(message) {
                 span.innerHTML += message.substring(0, divideLocation).trim();
                 span.appendChild(breakLine);
                 message = message.substring(divideLocation);
-                divideLocation = 35; /**resetting the location */                
+                divideLocation = 35; /**resetting the location */
             }
         }
 
@@ -449,11 +464,11 @@ function createVideo(videoNum, videoLink, videoMessage) {
     const wrapper = createDiv("wrapper");
     const video_mask = createDiv("video-mask");
     const video = document.createElement('video');
-    
+
     video_mask.setAttribute("id", "myVideo");
 
     const message = createDiv("video-text");
-    message.setAttribute('id', "video"+videoNum);
+    message.setAttribute('id', "video" + videoNum);
     const span = breakMessage(videoMessage);
 
     message.appendChild(span);
@@ -478,9 +493,176 @@ function createVideo(videoNum, videoLink, videoMessage) {
 }
 
 /**buffer for showing all */
-function createBuffer(){
+function createBuffer() {
     const buffer = createDiv("padding");
     document.body.appendChild(buffer);
+}
+
+/**Basic Functions */
+
+function remove(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
+function makeDiv(className) {
+    var div = document.createElement('div');
+    div.className = className;
+    return div;
+}
+
+function makeDivWithID(id) {
+    var div = document.createElement('div');
+    div.setAttribute('id', id);
+    return div;
+}
+
+function makeText(className, textInfo) {
+    var text = document.createElement('h2');
+    text.className = className;
+    text.innerHTML = textInfo;
+    return text;
+}
+
+function makeTextElement(tag, text) {
+    var element = document.createElement(tag);
+    element.innerHTML = text;
+    return element;
+}
+
+function makeCanvas(id) {
+    var canvas = document.createElement("canvas");
+    canvas.setAttribute('id', id);
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+    return canvas;
+}
+
+/**Slide Show Functions */
+
+function makeSlideShowWithText() {
+    makeIntroduceSlide();
+    makeSlides();
+    makeSlideShow();
+
+    function makeIntroduceSlide() {
+        const introduce_wrapper = makeDiv("introduce_wrapper");
+
+        const slide_introduce = makeDiv("slide_introduce");
+        const small_text = makeText("small-text-main", "EVERYTHING WORKS TOGETHER");
+        const big_text = makeText("bit-text-main", "Combine products for a safer home");
+
+        const slide_button = makeDiv("slide_button");
+        const left_button = makeDiv("slide_click_button");
+        const right_button = makeDiv("slide_click_button");
+        left_button.innerHTML = "&lang;";
+        right_button.innerHTML = "&rang;";
+
+        slide_introduce.appendChild(small_text);
+        slide_introduce.appendChild(big_text);
+
+        slide_button.appendChild(left_button);
+        slide_button.appendChild(right_button);
+
+        introduce_wrapper.appendChild(slide_introduce);
+        introduce_wrapper.appendChild(slide_button);
+
+        document.body.appendChild(introduce_wrapper);
+    }
+
+    function makeSlides() {
+        const slide_show = makeDiv("slideShow");
+        const slides = makeDiv("slides");
+        for (let i = 0; i < slideItems.length; i++) {
+            const slide = document.createElement('a');
+            slide.className = "slide";
+            slide.href = slideItems[i][2];
+
+            const img = document.createElement('img');
+            img.src = slideItems[i][3];
+
+            const main_text = makeText("slide_main_text", slideItems[i][0]);
+            const single_text = makeText("single_link", slideItems[i][1] + '&nbsp;&nbsp;&rang;');
+
+            slide.appendChild(img);
+            slide.appendChild(main_text);
+            slide.appendChild(single_text);
+
+            slides.appendChild(slide);
+        }
+
+        slide_show.appendChild(slides);
+
+        document.body.appendChild(slide_show);
+    }
+    
+    function makeSlideShow() {
+        const slides = document.querySelector('.slides');
+        const slideImg = document.querySelectorAll('.slide');
+        let currentIdx = 0;
+        const slideCount = slideItems.length;
+        const prev = document.querySelectorAll('.slide_click_button')[0];
+        const next = document.querySelectorAll('.slide_click_button')[1];
+        const slideWidth = 400;
+        const slideMargin = 25;
+        const black_color = "#141c1c";
+        const grey_color = "#bfc7c7";
+
+        slides.style.width = (slideWidth + slideMargin) * slideCount + 'px';
+
+        function moveSlide(num) {
+            slides.style.left = -num * 465 + 'px';
+            currentIdx = num;
+        }
+
+        function addHoverStyleNext() {
+            next.style.backgroundColor = grey_color;
+        }
+        function addBasicStyleNext() {
+            next.style.backgroundColor = black_color;
+        }
+        function addHoverStylePrev() {
+            prev.style.backgroundColor = grey_color;
+        }
+        function addBasicStylePrev() {
+            prev.style.backgroundColor = black_color;
+        }
+
+        prev.style.backgroundColor = grey_color;
+
+        prev.addEventListener('click', function () {
+            if (currentIdx !== 0) {
+                moveSlide(currentIdx - 1);
+                if (currentIdx === 0) {
+                    prev.style.backgroundColor = grey_color;
+                    prev.removeEventListener('mouseenter', addBasicStylePrev);
+                    prev.removeEventListener('mouseleave', addBasicStylePrev);
+                }
+                else if (currentIdx === slideCount - 6) {
+                    next.style.backgroundColor = black_color;
+                    next.addEventListener('mouseenter', addHoverStyleNext);
+                    next.addEventListener('mouseleave', addBasicStyleNext);
+                }
+            }
+        });
+
+        next.addEventListener('click', function () {
+            if (currentIdx !== slideCount - 5) {
+                moveSlide(currentIdx + 1);
+                if (currentIdx == 1) {
+                    prev.style.backgroundColor = black_color;
+                    prev.addEventListener('mouseenter', addHoverStylePrev);
+                    prev.addEventListener('mouseleave', addBasicStylePrev);
+                }
+                else if (currentIdx === slideCount - 5) {
+                    next.style.backgroundColor = grey_color;
+                    next.removeEventListener('mouseenter', addBasicStyleNext);
+                    next.removeEventListener('mouseleave', addBasicStyleNext);
+                }
+            }
+        });
+    }
 }
 
 /* Every Function for Landing a Webpage*/
@@ -501,3 +683,4 @@ if (valid) {
 createVideo(1, "./videos/vivint.mp4", "Protect your home with a Vivint system that stops crime before it starts");
 createCheckHomeSafetyTest();
 createBuffer();
+makeSlideShowWithText();
