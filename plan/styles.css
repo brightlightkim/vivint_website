@@ -196,6 +196,7 @@ li {
 
 .answer:hover, .chosenAnswer {
     background-color: #f3e3be;
+    cursor: pointer;
 }
 
 .wrapper {
