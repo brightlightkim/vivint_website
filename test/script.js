@@ -213,7 +213,7 @@ function landingSafetyQuestionPage() {
 
         var logo = document.createElement('img');
         logo.className = "logo";
-        logo.src = "https://postfiles.pstatic.net/MjAyMjAyMjJfMjk3/MDAxNjQ1NDg1NzExMDk0.ZNCWcaEniMlVcUH-Iah1UhenPl0qCfSgGUes7OtzCpUg.-RKWgpd-Av4oTl9v8OREMhePivwoxfDs7JAXaM4-nXMg.PNG.upiioo/vivint_logo.PNG?type=w966";
+        logo.src = "../img/vivint_logo.png";
 
         vividLink.appendChild(logo);
 

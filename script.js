@@ -294,7 +294,7 @@ function createTimer() {
 /**Create Header */
 function createHeader() {
     const header = createDiv("header");
-    const logoLink = createImageLink("https://www.vivint.com/", "https://postfiles.pstatic.net/MjAyMjAyMjJfMjk3/MDAxNjQ1NDg1NzExMDk0.ZNCWcaEniMlVcUH-Iah1UhenPl0qCfSgGUes7OtzCpUg.-RKWgpd-Av4oTl9v8OREMhePivwoxfDs7JAXaM4-nXMg.PNG.upiioo/vivint_logo.PNG?type=w966", "logo");
+    const logoLink = createImageLink("https://www.vivint.com/", "./img/vivint_logo.png", "logo");
     header.appendChild(logoLink);
     document.body.appendChild(header);
 
