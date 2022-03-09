@@ -234,6 +234,7 @@ li {
 
 .button:hover {
     background-color: #f3e3be;
+    cursor: pointer;
 }
 
 .icon {

@@ -188,6 +188,7 @@ body>div {
 
 .button:hover {
     background-color: #eed089;
+    cursor: pointer;
 }
 
 .call-icon {
@@ -557,6 +558,7 @@ video {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
+    cursor: pointer;
 }
 
 a {
