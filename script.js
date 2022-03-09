@@ -477,6 +477,7 @@ function createVideo(videoNum, videoLink, videoMessage) {
     video.controls = false;
     video.autoplay = true;
     video.muted = true;
+    video.playsInline = true;
     video.loop = true;
     video.preload = "none";
     video.innerHTML = "Your Browser does not support the video tag";
