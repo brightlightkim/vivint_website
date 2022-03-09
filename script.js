@@ -228,7 +228,7 @@ function createClickButton() {
     const span = createSpan("877.537.3785");
     button.href = "tel:18775373785";
     button.className = "button";
-    img.src = "https://www.iconsdb.com/icons/preview/white/phone-xxl.png";
+    img.src = "./img/vivint_call.png";
     img.className = "icon";
     button.appendChild(img);
     button.appendChild(span);

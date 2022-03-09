@@ -887,7 +887,7 @@ function suggestPlan() {
             button.style.marginTop = "1em";
         }
 
-        img.src = "https://www.iconsdb.com/icons/preview/white/phone-xxl.png";
+        img.src = "../img/vivint_call.png";
         img.className = "icon";
         button.appendChild(img);
         button.appendChild(span);
