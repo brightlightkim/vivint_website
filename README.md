@@ -1,5 +1,5 @@
-## vivint_Website
-Vivint Website Project for developing website using JavaScript and CSS.
+### Vivint_Website
+Vivint Website Project for developing a website using JavaScript and CSS.
 
 ## JavaScript Functions and Contents
 # Timer Content
